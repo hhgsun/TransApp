@@ -14,5 +14,11 @@
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-list>
+    <ion-item *ngFor="let song of songs | async" (click)="showOptions(song.$key, song.title)">
+      {{song.title}}
+    </ion-item>
+  </ion-list>
+
+  <button ion-button secondary (click)="addSong()">Yeni</button>
 </ion-content>
