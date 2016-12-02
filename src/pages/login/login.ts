@@ -4,6 +4,9 @@ import { NavController, MenuController, NavParams } from 'ionic-angular';
 
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
+import { IlanlarPage } from '../ilanlar/ilanlar'
+
+
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html'
@@ -35,11 +38,12 @@ export class LoginPage {
     login() {
         var credentials: any = { email: this.loginData.email, password: this.loginData.password }
         this.angularFire.auth.login(credentials, { provider: AuthProviders.Password, method: AuthMethods.Password }).then((data: any) => {
-            console.log(data);
-        }).catch((err: any) => {
-            console.log("err:")
-            console.log(err);
+            console.log(data.uid);
+            this.navCtrl.setRoot(IlanlarPage);
+        }).catch((err) => {
+            console.log("Error: "+err.message);
         });
+        this.navCtrl.setRoot(IlanlarPage); // bu kısmı sil
     }
 
     register() {

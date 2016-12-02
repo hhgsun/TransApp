@@ -2,6 +2,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
+import { IlanlarPage } from '../pages/ilanlar/ilanlar';
+import { IlanverPage } from '../pages/ilanver/ilanver';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 
@@ -21,6 +23,8 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
+    IlanlarPage,
+    IlanverPage,
     Page1,
     Page2
   ],
@@ -38,6 +42,8 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     LoginPage,
+    IlanlarPage,
+    IlanverPage,
     Page1,
     Page2
   ],

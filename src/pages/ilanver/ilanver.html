@@ -1,0 +1,31 @@
+<!--
+  Generated template for the Ilanver page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ilanver</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-item>
+      <ion-label fixed>Başlık</ion-label>
+      <ion-input type="text" [(ngModel)]="ilanData.baslik"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Açıklama</ion-label>
+      <ion-input type="text" [(ngModel)]="ilanData.aciklama"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <button ion-button (click)="ekle()">Ekle</button>
+</ion-content>

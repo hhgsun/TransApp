@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>ilanlar</ion-title>
+    <!--ion-buttons end>
+      <button ion-button icon-left (click)="ilanVer()">
+        <ion-icon name="add"></ion-icon> İlan Ver
+      </button>
+    </ion-buttons-->
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-fab bottom right>
+    <button (click)="ilanVer()" ion-fab>Ekle</button>
+  </ion-fab>
+
+  <ion-slides #mySlider (ionDidChange)="onSlideChanged()">
+
+    <ion-slide>
+      <ion-list>
+        <ion-item *ngFor="let ilan of ilanlar | async">
+          <ion-avatar item-left>
+            <img src="https://avatars0.githubusercontent.com/u/733806?v=3&s=88">
+          </ion-avatar>
+          <h2>{{ilan.baslik}}</h2>
+          <p>{{ilan.aciklama}}</p>
+        </ion-item>
+      </ion-list>
+
+    </ion-slide>
+
+    <ion-slide>
+      <h2>Slide 2</h2>
+    </ion-slide>
+
+    <ion-slide>
+      <h2>Slide 3</h2>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

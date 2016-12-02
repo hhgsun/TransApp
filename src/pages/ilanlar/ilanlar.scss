@@ -1,0 +1,9 @@
+page-ilanlar {
+    ion-slide.swiper-slide{
+        overflow-y:scroll !important;
+        height: auto !important;
+        -webkit-align-items: flex-start !important;
+        -ms-flex-align: flex-start !important;
+        align-items: flex-start !important;
+    }
+}
