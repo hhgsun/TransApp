@@ -18,6 +18,7 @@ export class IlanverPage {
   }
 
   ekle(){
+    this.ilanData.ilaniVerenKullaniciId = this.angularFire.auth.getAuth().uid;
     this.ilanlar.push(this.ilanData).then((data:any)=>{
       console.log(data);
       this.navCtrl.pop();

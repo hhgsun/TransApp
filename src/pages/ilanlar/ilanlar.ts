@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
+import { NavController, Slides, NavParams } from 'ionic-angular';
 
 import { IlanverPage } from '../ilanver/ilanver'
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire } from 'angularfire2';
 
 @Component({
   selector: 'page-ilanlar',
@@ -11,12 +11,24 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class IlanlarPage {
   @ViewChild('homeSlider') slider: Slides;
   public topTabs = "ilanlar";
-  public ilanlar: FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController, public angularFire: AngularFire) { }
+  public secilenIlan = null;
+  public ilanlar = [];
+
+  constructor(public navCtrl: NavController, public angularFire: AngularFire, public navParams: NavParams) {
+    this.secilenIlan = this.navParams.get("item");
+  }
 
   ionViewDidLoad() {
-    console.log('Hello IlanlarPage Page');
-    this.ilanlar = this.angularFire.database.list("ilanlar");
+    var ilanlarList = [];
+    this.angularFire.database.list("ilanlar").subscribe((ilanlar: any) => {
+      ilanlar.forEach(ilan => {
+        this.angularFire.database.object("users/" + ilan.ilaniVerenKullaniciId).subscribe((user: any) => {
+          ilan["ilaniVerenKullanici"] = user;
+          ilanlarList.push(ilan);
+        });
+      });
+    })
+    this.ilanlar = ilanlarList;
   }
 
   ilanVer() {
@@ -38,6 +50,12 @@ export class IlanlarPage {
     } else {
       this.slider.slideTo(1, 100);
     }
+  }
+
+  ilanDetay(ilan) {
+    this.navCtrl.push(IlanlarPage, {
+      item: ilan
+    })
   }
 
 }

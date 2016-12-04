@@ -3,14 +3,16 @@
     <button ion-button menuToggle>
       <ion-icon name="contact"></ion-icon>
     </button>
-    <ion-title>ilanlar</ion-title>
+    <ion-title *ngIf="secilenIlan == null">TransApp
+      <ion-icon name="ios-arrow-forward" style="font-size:1em;"></ion-icon> {{topTabs}}</ion-title>
+    <ion-title *ngIf="secilenIlan">{{secilenIlan.baslik}}</ion-title>
     <!--ion-buttons end>
       <button ion-button icon-left (click)="ilanVer()">
         <ion-icon name="add"></ion-icon> İlan Ver
       </button>
     </ion-buttons-->
   </ion-navbar>
-  <ion-toolbar>
+  <ion-toolbar *ngIf="secilenIlan == null">
     <ion-segment [(ngModel)]="topTabs">
       <ion-segment-button value="ilanlar" (click)="slidereGit('ilanlar')">
         <ion-icon name="list"></ion-icon>
@@ -22,7 +24,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="secilenIlan == null">
+
   <ion-fab bottom right>
     <button (click)="ilanVer()" ion-fab>
       <ion-icon name="create"></ion-icon>
@@ -34,11 +37,11 @@
     <ion-slide>
 
       <ion-list>
-        <ion-item *ngFor="let ilan of ilanlar | async">
+        <ion-item *ngFor="let ilan of ilanlar" (click)="ilanDetay(ilan)">
           <ion-avatar item-left>
             <img src="https://avatars0.githubusercontent.com/u/733806?v=3&s=88">
           </ion-avatar>
-          <h2>{{ilan.baslik}}</h2>
+          <h2>{{ilan.baslik}} {{ilan.ilaniVerenKullanici.email}}</h2>
           <p>{{ilan.aciklama}}</p>
         </ion-item>
       </ion-list>
@@ -53,4 +56,77 @@
     </ion-slide>
 
   </ion-slides>
+</ion-content>
+
+<ion-content *ngIf="secilenIlan">
+<ion-card>
+
+  <ion-item>
+    <ion-avatar item-left>
+      <img src="http://ionicframework.com/dist/preview-app/www/assets/img/sarah-avatar.png.jpeg">
+    </ion-avatar>
+    <h2>Marty McFly</h2>
+    <p>November 5, 1955</p>
+  </ion-item>
+
+  <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-tmntr.jpg">
+
+  <ion-card-content>
+    <h2>{{secilenIlan.baslik}}</h2>
+    <p>{{secilenIlan.aciklama}}.</p>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <div>12 Likes</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>4 Comments</div>
+      </button>
+    </ion-col>
+    <ion-col center text-center>
+      <ion-note>
+        11h ago
+      </ion-note>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+
+<ion-card>
+
+  <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-map-paris.png">
+  <ion-fab right top>
+    <button ion-fab>
+      <ion-icon name="pin"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-item>
+    <ion-icon name="football" item-left large></ion-icon>
+    <h2>Museum of Football</h2>
+    <p>11 N. Way St, Madison, WI 53703</p>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="wine" item-left large ></ion-icon>
+    <h2>Institute of Fine Cocktails</h2>
+    <p>14 S. Hop Avenue, Madison, WI 53703</p>
+  </ion-item>
+
+  <ion-item>
+    <span item-left>18 min</span>
+    <span item-left>(2.6 mi)</span>
+    <button ion-button icon-left clear item-right>
+      <ion-icon name="navigate"></ion-icon>
+      Start
+    </button>
+  </ion-item>
+
+</ion-card>
 </ion-content>

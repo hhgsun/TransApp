@@ -4,9 +4,6 @@ import { NavController, MenuController, NavParams } from 'ionic-angular';
 
 import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
-import { IlanlarPage } from '../ilanlar/ilanlar'
-
-
 @Component({
     selector: 'page-login',
     templateUrl: 'login.html'
