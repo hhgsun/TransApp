@@ -1,9 +1,22 @@
 page-ilanlar {
+    .scroll-content::-webkit-scrollbar {
+        display: none !important;
+    }
+    ion-slide.swiper-slide::-webkit-scrollbar {
+        display: block !important;
+    }
     ion-slide.swiper-slide{
         overflow-y:scroll !important;
         height: auto !important;
         -webkit-align-items: flex-start !important;
         -ms-flex-align: flex-start !important;
         align-items: flex-start !important;
+    }
+    .toolbar-background {
+        background-color:#fff !important;
+        border-color:#fff !important;
+    }
+    .toolbar-ios {
+        border-bottom: 2px solid #efefef;
     }
 }

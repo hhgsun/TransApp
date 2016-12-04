@@ -39,11 +39,11 @@ export class LoginPage {
         var credentials: any = { email: this.loginData.email, password: this.loginData.password }
         this.angularFire.auth.login(credentials, { provider: AuthProviders.Password, method: AuthMethods.Password }).then((data: any) => {
             console.log(data.uid);
-            this.navCtrl.setRoot(IlanlarPage);
+            //this.navCtrl.setRoot(IlanlarPage);
         }).catch((err) => {
-            console.log("Error: "+err.message);
+            alert("Hata: "+ err.message);
+            console.log("Error message: "+err.message);
         });
-        this.navCtrl.setRoot(IlanlarPage); // bu kısmı sil
     }
 
     register() {

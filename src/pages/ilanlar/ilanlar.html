@@ -1,7 +1,7 @@
-<ion-header>
+<ion-header no-shadow>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="contact"></ion-icon>
     </button>
     <ion-title>ilanlar</ion-title>
     <!--ion-buttons end>
@@ -10,17 +10,29 @@
       </button>
     </ion-buttons-->
   </ion-navbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="topTabs">
+      <ion-segment-button value="ilanlar" (click)="slidereGit('ilanlar')">
+        <ion-icon name="list"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="bildirimler" (click)="slidereGit('bildirimler')">
+        <ion-icon name="notifications"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
-
 
 <ion-content>
   <ion-fab bottom right>
-    <button (click)="ilanVer()" ion-fab>Ekle</button>
+    <button (click)="ilanVer()" ion-fab>
+      <ion-icon name="create"></ion-icon>
+    </button>
   </ion-fab>
 
-  <ion-slides #mySlider (ionDidChange)="onSlideChanged()">
+  <ion-slides #homeSlider (ionDidChange)="onSlideChanged()">
 
     <ion-slide>
+
       <ion-list>
         <ion-item *ngFor="let ilan of ilanlar | async">
           <ion-avatar item-left>
@@ -35,10 +47,9 @@
 
     <ion-slide>
       <h2>Slide 2</h2>
-    </ion-slide>
-
-    <ion-slide>
-      <h2>Slide 3</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
     </ion-slide>
 
   </ion-slides>

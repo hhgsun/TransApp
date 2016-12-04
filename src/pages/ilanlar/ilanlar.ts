@@ -9,10 +9,10 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
   templateUrl: 'ilanlar.html'
 })
 export class IlanlarPage {
-  @ViewChild('mySlider') slider: Slides;
-
-  ilanlar:FirebaseListObservable<any>;
-  constructor(public navCtrl: NavController, public angularFire:AngularFire) { }
+  @ViewChild('homeSlider') slider: Slides;
+  public topTabs = "ilanlar";
+  public ilanlar: FirebaseListObservable<any>;
+  constructor(public navCtrl: NavController, public angularFire: AngularFire) { }
 
   ionViewDidLoad() {
     console.log('Hello IlanlarPage Page');
@@ -25,7 +25,19 @@ export class IlanlarPage {
 
   onSlideChanged() {
     let currentIndex = this.slider.getActiveIndex();
-    console.log("Current index is", currentIndex);
+    if (currentIndex == 0) {
+      this.topTabs = "ilanlar";
+    } else {
+      this.topTabs = "bildirimler"
+    }
+  }
+
+  slidereGit(topTabsParam: string) {
+    if (topTabsParam == "ilanlar") {
+      this.slider.slideTo(0, 100);
+    } else {
+      this.slider.slideTo(1, 100);
+    }
   }
 
 }
