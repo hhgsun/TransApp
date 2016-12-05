@@ -35,7 +35,6 @@
   <ion-slides #homeSlider (ionDidChange)="onSlideChanged()">
 
     <ion-slide>
-
       <ion-list>
         <ion-item *ngFor="let ilan of ilanlar" (click)="ilanDetay(ilan)">
           <ion-avatar item-left>
@@ -45,10 +44,29 @@
           <p>{{ilan.aciklama}}</p>
         </ion-item>
       </ion-list>
-
     </ion-slide>
 
     <ion-slide>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
+      <h2>Slide 2</h2>
       <h2>Slide 2</h2>
       <h2>Slide 2</h2>
       <h2>Slide 2</h2>
@@ -59,74 +77,74 @@
 </ion-content>
 
 <ion-content *ngIf="secilenIlan">
-<ion-card>
+  <ion-card>
 
-  <ion-item>
-    <ion-avatar item-left>
-      <img src="http://ionicframework.com/dist/preview-app/www/assets/img/sarah-avatar.png.jpeg">
-    </ion-avatar>
-    <h2>Marty McFly</h2>
-    <p>November 5, 1955</p>
-  </ion-item>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="http://ionicframework.com/dist/preview-app/www/assets/img/sarah-avatar.png.jpeg">
+      </ion-avatar>
+      <h2>Marty McFly</h2>
+      <p>November 5, 1955</p>
+    </ion-item>
 
-  <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-tmntr.jpg">
+    <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-tmntr.jpg">
 
-  <ion-card-content>
-    <h2>{{secilenIlan.baslik}}</h2>
-    <p>{{secilenIlan.aciklama}}.</p>
-  </ion-card-content>
+    <ion-card-content>
+      <h2>{{secilenIlan.baslik}}</h2>
+      <p>{{secilenIlan.aciklama}}.</p>
+    </ion-card-content>
 
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
         <ion-icon name="thumbs-up"></ion-icon>
         <div>12 Likes</div>
       </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
         <ion-icon name="text"></ion-icon>
         <div>4 Comments</div>
       </button>
-    </ion-col>
-    <ion-col center text-center>
-      <ion-note>
-        11h ago
-      </ion-note>
-    </ion-col>
-  </ion-row>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+    </ion-row>
 
-</ion-card>
+  </ion-card>
 
-<ion-card>
+  <ion-card>
 
-  <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-map-paris.png">
-  <ion-fab right top>
-    <button ion-fab>
+    <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-map-paris.png">
+    <ion-fab right top>
+      <button ion-fab>
       <ion-icon name="pin"></ion-icon>
     </button>
-  </ion-fab>
+    </ion-fab>
 
-  <ion-item>
-    <ion-icon name="football" item-left large></ion-icon>
-    <h2>Museum of Football</h2>
-    <p>11 N. Way St, Madison, WI 53703</p>
-  </ion-item>
+    <ion-item>
+      <ion-icon name="football" item-left large></ion-icon>
+      <h2>Museum of Football</h2>
+      <p>11 N. Way St, Madison, WI 53703</p>
+    </ion-item>
 
-  <ion-item>
-    <ion-icon name="wine" item-left large ></ion-icon>
-    <h2>Institute of Fine Cocktails</h2>
-    <p>14 S. Hop Avenue, Madison, WI 53703</p>
-  </ion-item>
+    <ion-item>
+      <ion-icon name="wine" item-left large></ion-icon>
+      <h2>Institute of Fine Cocktails</h2>
+      <p>14 S. Hop Avenue, Madison, WI 53703</p>
+    </ion-item>
 
-  <ion-item>
-    <span item-left>18 min</span>
-    <span item-left>(2.6 mi)</span>
-    <button ion-button icon-left clear item-right>
+    <ion-item>
+      <span item-left>18 min</span>
+      <span item-left>(2.6 mi)</span>
+      <button ion-button icon-left clear item-right>
       <ion-icon name="navigate"></ion-icon>
       Start
     </button>
-  </ion-item>
+    </ion-item>
 
-</ion-card>
+  </ion-card>
 </ion-content>

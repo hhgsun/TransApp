@@ -19,16 +19,15 @@ export class IlanlarPage {
   }
 
   ionViewDidLoad() {
-    var ilanlarList = [];
     this.angularFire.database.list("ilanlar").subscribe((ilanlar: any) => {
+      this.ilanlar = [];
       ilanlar.forEach(ilan => {
         this.angularFire.database.object("users/" + ilan.ilaniVerenKullaniciId).subscribe((user: any) => {
           ilan["ilaniVerenKullanici"] = user;
-          ilanlarList.push(ilan);
-        });
+          this.ilanlar.push(ilan);
+        })
       });
     })
-    this.ilanlar = ilanlarList;
   }
 
   ilanVer() {
