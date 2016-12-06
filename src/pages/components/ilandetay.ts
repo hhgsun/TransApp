@@ -9,7 +9,6 @@ export class IlanDetayComponent {
     public ilan = null; //secilenIlan
     constructor(public navParams:NavParams) {
         this.ilan = this.navParams.get("item");
-        console.log(this.ilan);
     }
 }
 

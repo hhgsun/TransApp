@@ -10,7 +10,6 @@ import { IlanDetayComponent } from '../components/ilandetay'
 export class SearchComponent {
     public ilanlar = [];
     constructor(public angularFire: AngularFire, public navController: NavController) {
-        this.ilanlar = [];
     }
 
     items() {

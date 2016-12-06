@@ -1,6 +1,6 @@
 <ion-header no-shadow>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button menuToggle large>
       <ion-icon name="contact"></ion-icon>
     </button>
     <ion-title>
@@ -9,7 +9,7 @@
       {{topTabs}}
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="searchComponenteGit()">
+      <button ion-button large (click)="searchComponenteGit()">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
@@ -37,7 +37,7 @@
   <ion-slides #homeSlider (ionDidChange)="onSlideChanged()">
 
     <ion-slide>
-      <ilanlar filter="filter"></ilanlar>
+      <ilanlar></ilanlar>
     </ion-slide>
 
     <ion-slide>
