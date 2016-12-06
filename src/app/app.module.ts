@@ -2,10 +2,15 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
-import { IlanlarPage } from '../pages/ilanlar/ilanlar';
+import { AnasayfaPage } from '../pages/anasayfa/anasayfa';
 import { IlanverPage } from '../pages/ilanver/ilanver';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
+
+// Components
+import { IlanlarComponent } from '../pages/components/ilanlar';
+import { IlanDetayComponent } from '../pages/components/ilandetay';
+import { SearchComponent } from '../pages/components/search';
 
 // Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
@@ -23,10 +28,13 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
-    IlanlarPage,
+    AnasayfaPage,
     IlanverPage,
     Page1,
-    Page2
+    Page2,
+    IlanlarComponent,
+    IlanDetayComponent,
+    SearchComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -42,10 +50,13 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     LoginPage,
-    IlanlarPage,
+    AnasayfaPage,
     IlanverPage,
     Page1,
-    Page2
+    Page2,
+    IlanlarComponent,
+    IlanDetayComponent,
+    SearchComponent
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })

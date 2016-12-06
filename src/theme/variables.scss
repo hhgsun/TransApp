@@ -69,3 +69,13 @@ $colors: (
 
 $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
+
+
+  // toolbar beyaz ve border-bottom beyaz
+    .toolbar-background {
+        background-color:#fff !important;
+        border-color:#fff !important;
+    }
+    .toolbar-ios {
+        border-bottom: 2px solid #efefef;
+    }

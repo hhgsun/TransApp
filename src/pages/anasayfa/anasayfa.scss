@@ -1,9 +1,10 @@
-page-ilanlar {
+page-anasayfa {
+    // ion slide scroll
     .scroll-content::-webkit-scrollbar {
         display: none !important;
     }
     ion-slide.swiper-slide::-webkit-scrollbar {
-        display: block !important;
+        display: none !important;
     }
     ion-slide.swiper-slide{
         overflow-y:scroll !important;
@@ -12,11 +13,5 @@ page-ilanlar {
         -ms-flex-align: flex-start !important;
         align-items: flex-start !important;
     }
-    .toolbar-background {
-        background-color:#fff !important;
-        border-color:#fff !important;
-    }
-    .toolbar-ios {
-        border-bottom: 2px solid #efefef;
-    }
+    // ----------------
 }

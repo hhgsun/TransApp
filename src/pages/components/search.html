@@ -1,0 +1,17 @@
+<ion-header no-shadow>
+  <ion-navbar>
+    <ion-searchbar placeholder="Arama Yapın" (ionInput)="searchGet($event)"></ion-searchbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let ilan of ilanlar" (click)="ilanDetay(ilan)">
+      <ion-avatar item-left>
+        <img src="https://avatars0.githubusercontent.com/u/733806?v=3&s=88">
+      </ion-avatar>
+      <h2>{{ilan.baslik}}</h2>
+      <p>{{ilan.aciklama}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
