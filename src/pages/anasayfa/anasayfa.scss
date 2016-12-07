@@ -1,17 +1,32 @@
 page-anasayfa {
-    // ion slide scroll
+    background: #fff; // ios da bazı yerkeri siyah gösteriyor
+    
+    // ion slide scroll bar
     .scroll-content::-webkit-scrollbar {
-        display: none !important;
+        // display: none !important;
     }
     ion-slide.swiper-slide::-webkit-scrollbar {
-        display: none !important;
+        // display: none !important;
     }
+
+    // ion slide
     ion-slide.swiper-slide{
-        overflow-y:scroll !important;
-        height: auto !important;
-        -webkit-align-items: flex-start !important;
-        -ms-flex-align: flex-start !important;
-        align-items: flex-start !important;
+        padding-top: 44px; //88px;
+        //overflow-y:scroll !important;
+        //height: auto !important;
+        -webkit-align-items: stretch !important;
+        -ms-flex-align: stretch !important;
+        align-items: stretch !important;
     }
     // ----------------
+
+    .toolbar-background {
+        height: 90% !important;
+    }
+    .toolbar-md {
+        min-height: 43px !important;
+    }
+    .toolbar-title-ios {
+        text-align: left !important;
+    }
 }

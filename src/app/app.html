@@ -1,8 +1,15 @@
 <ion-menu [content]="content">
   <ion-header class="side-profile">
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title>TransApp <i style="font-size: smaller; color:#c5c5c5;">taşımacılık ağı</i></ion-title>
     </ion-toolbar>
+    <ion-item *ngIf="aktifKullanici" menuClose (click)="hesabimaGit()">
+      <ion-avatar item-left>
+        <img src="http://ionicframework.com/dist/preview-app/www/assets/img/marty-avatar.png">
+      </ion-avatar>
+      <h2>{{aktifKullanici.displayName}}</h2>
+      <p>Tır Şöförü</p>
+    </ion-item>
   </ion-header>
 
   <ion-content>

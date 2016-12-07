@@ -1,5 +1,16 @@
 // http://ionicframework.com/docs/v2/theming/
 
+ion-header.side-profile{
+    .toolbar-ios ion-title {
+        padding: 0 20px 1px !important;
+        .toolbar-title-ios{
+            text-align: left;
+        }
+    }
+    .item-inner{
+        border-bottom: none !important;
+    }
+}
 
 // App Global Sass
 // --------------------------------------------------

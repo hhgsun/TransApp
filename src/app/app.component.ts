@@ -6,6 +6,7 @@ import { AngularFire } from 'angularfire2';
 
 import { LoginPage } from '../pages/login/login';
 import { AnasayfaPage } from '../pages/anasayfa/anasayfa';
+import { HesabimPage } from '../pages/hesabim/hesabim';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 
@@ -20,10 +21,15 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
+  aktifKullanici:any;
+
   constructor(public platform: Platform, public angularFire:AngularFire) {
     angularFire.auth.subscribe((auth:any)=>{
       if(auth){
         this.rootPage = AnasayfaPage;
+        this.angularFire.database.object("users/"+auth.uid).subscribe(authData=>{
+          this.aktifKullanici = authData;
+        })
       }else{
         this.rootPage = LoginPage;
       }
@@ -32,7 +38,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'AnasayfaPage', component: AnasayfaPage },
+      { title: 'Hesabım', component: HesabimPage },
       { title: 'Page One', component: Page1 },
       { title: 'Page Two', component: Page2 }
     ];
@@ -49,9 +55,12 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    //this.nav.setRoot(page.component);
+    this.nav.push(page.component)
+  }
+
+  hesabimaGit(){
+    this.nav.push(HesabimPage);
   }
 
   cikisYap() {

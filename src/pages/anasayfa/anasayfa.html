@@ -1,20 +1,28 @@
 <ion-header no-shadow>
-  <ion-navbar>
+  <ion-navbar color="default">
     <button ion-button menuToggle large>
       <ion-icon name="contact"></ion-icon>
     </button>
-    <ion-title>
+    <!--ion-title>
       TransApp
       <ion-icon name="md-arrow-dropright" style="font-size:1em;"></ion-icon>
       {{topTabs}}
-    </ion-title>
+    </ion-title-->
+    <ion-segment [(ngModel)]="topTabs">
+      <ion-segment-button value="ilanlar" (click)="slidereGit('ilanlar')">
+        <ion-icon name="list"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="bildirimler" (click)="slidereGit('bildirimler')">
+        <ion-icon name="notifications"></ion-icon> 2
+      </ion-segment-button>
+    </ion-segment>
     <ion-buttons end>
-      <button ion-button large (click)="searchComponenteGit()">
+      <button ion-button icon-right (click)="searchComponenteGit()">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
+  <!--ion-toolbar>
     <ion-segment [(ngModel)]="topTabs">
       <ion-segment-button value="ilanlar" (click)="slidereGit('ilanlar')">
         <ion-icon name="list"></ion-icon>
@@ -23,49 +31,47 @@
         <ion-icon name="notifications"></ion-icon>
       </ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
+  </ion-toolbar-->
 </ion-header>
 
-<ion-content>
 
-  <ion-fab bottom right>
-    <button (click)="ilanVer()" ion-fab>
+<ion-fab bottom right>
+  <button (click)="ilanVer()" ion-fab>
       <ion-icon name="create"></ion-icon>
     </button>
-  </ion-fab>
+</ion-fab>
 
-  <ion-slides #homeSlider (ionDidChange)="onSlideChanged()">
+<ion-slides #homeSlider (ionDidChange)="onSlideChanged()">
 
-    <ion-slide>
-      <ilanlar></ilanlar>
-    </ion-slide>
+  <ion-slide>
+    <ilanlar></ilanlar>
+  </ion-slide>
 
-    <ion-slide>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-      <h2>Slide 2</h2>
-    </ion-slide>
+  <ion-slide>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+    <h2>Slide 2</h2>
+  </ion-slide>
 
-  </ion-slides>
-</ion-content>
+</ion-slides>

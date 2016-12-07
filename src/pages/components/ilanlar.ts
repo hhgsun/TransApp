@@ -11,7 +11,7 @@ import { IlanDetayComponent } from '../components/ilandetay'
 export class IlanlarComponent {
     public ilanlar: any = [];
     public ilanSayisi = 10;
-    public btnDahaFazla = true;
+    public infiniteDahaFazla = true;
     public gelenIlanlarLength = 0;
 
     constructor(public angularFire: AngularFire, public navController: NavController) {
@@ -23,9 +23,9 @@ export class IlanlarComponent {
             query: { limitToLast: this.ilanSayisi }
         }).subscribe((gelenIlanlar) => {
             // her loadIlanlardan gelen ilanların length ini tutarız önceki ile eşit ise btnDahaFazla false olur
-            if(this.gelenIlanlarLength == gelenIlanlar.length){
-                this.btnDahaFazla = false;
-            }else{
+            if (this.gelenIlanlarLength == gelenIlanlar.length) {
+                this.infiniteDahaFazla = false;
+            } else {
                 this.gelenIlanlarLength = gelenIlanlar.length;
             }
             gelenIlanlar.reverse(); // gelen ilanları ters çeviriyoruz
@@ -47,6 +47,22 @@ export class IlanlarComponent {
         this.navController.push(IlanDetayComponent, {
             item: ilan
         })
+    }
+
+    doRefresh(refresher) {
+        this.ilanSayisi = 10;
+        this.infiniteDahaFazla = true;
+        setTimeout(() => {
+            this.loadIlanlar();
+            refresher.complete();
+        }, 2000);
+    }
+
+    doInfinite(infiniteScroll) {
+        setTimeout(() => {
+            this.loadIlanlar();
+            infiniteScroll.complete();
+        }, 500);
     }
 }
 

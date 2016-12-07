@@ -12,6 +12,7 @@ import { IlanverPage } from '../ilanver/ilanver'
 export class AnasayfaPage {
   @ViewChild('homeSlider') slider: Slides;
   public topTabs = "ilanlar";
+  public searchText = "";
 
   constructor(public navCtrl: NavController, public angularFire: AngularFire) {
   }
@@ -44,4 +45,11 @@ export class AnasayfaPage {
   searchComponenteGit() {
     this.navCtrl.push(SearchComponent);
   }
+
+
+  searchGet(event) {
+    var val = event.target.value;
+    this.searchText = val;
+  }
+
 }

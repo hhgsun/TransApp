@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { AnasayfaPage } from '../pages/anasayfa/anasayfa';
 import { IlanverPage } from '../pages/ilanver/ilanver';
+import { HesabimPage } from '../pages/hesabim/hesabim';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 
@@ -30,6 +31,7 @@ export const firebaseConfig = {
     LoginPage,
     AnasayfaPage,
     IlanverPage,
+    HesabimPage,
     Page1,
     Page2,
     IlanlarComponent,
@@ -52,6 +54,7 @@ export const firebaseConfig = {
     LoginPage,
     AnasayfaPage,
     IlanverPage,
+    HesabimPage,
     Page1,
     Page2,
     IlanlarComponent,

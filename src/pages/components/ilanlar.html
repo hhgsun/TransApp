@@ -1,19 +1,25 @@
-<ion-list>
-    <ion-item *ngFor="let ilan of ilanlar" (click)="ilanDetay(ilan)">
-        <ion-avatar item-left>
-            <img [src]="ilan.random">
-        </ion-avatar>
-        <h2>{{ilan.baslik}}</h2>
-        <p>{{ilan.aciklama}}</p>
-    </ion-item>
-</ion-list>
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-<br>
-<button *ngIf="btnDahaFazla" ion-button (click)="loadIlanlar()">Daha Fazlası...</button>
-<br>
-<ion-card *ngIf="btnDahaFazla == false">
-  <ion-card-content>
-    Buraya Kadar
-  </ion-card-content>
-</ion-card>
-<br>
+    <ion-list>
+        <ion-item *ngFor="let ilan of ilanlar" (click)="ilanDetay(ilan)">
+            <ion-avatar item-left>
+                <img [src]="ilan.random">
+            </ion-avatar>
+            <h2>{{ilan.baslik}}</h2>
+            <p>{{ilan.aciklama}}</p>
+        </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll *ngIf="infiniteDahaFazla" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-card *ngIf="infiniteDahaFazla == false">
+        <ion-card-content>
+            Buraya Kadar
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>
