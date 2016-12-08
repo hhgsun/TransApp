@@ -49,7 +49,8 @@ export class LoginPage {
             this.angularFire.database.object("users/" + data.uid).set({
                 userId: data.uid,
                 email: this.registerData.email,
-                displayName: this.registerData.displayName
+                ad: this.registerData.ad,
+                soyad: this.registerData.soyad
             }).then((cal: any) => {
                 console.log(cal);
             })

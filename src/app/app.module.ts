@@ -13,6 +13,9 @@ import { IlanlarComponent } from '../pages/components/ilanlar';
 import { IlanDetayComponent } from '../pages/components/ilandetay';
 import { SearchComponent } from '../pages/components/search';
 
+// Service
+import { BaseService } from '../pages/services/service';
+
 // Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
 
@@ -61,6 +64,6 @@ export const firebaseConfig = {
     IlanDetayComponent,
     SearchComponent
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, BaseService]
 })
 export class AppModule { }

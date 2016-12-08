@@ -3,6 +3,8 @@ import { NavController } from 'ionic-angular';
 
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
+import { BaseService } from '../services/service'
+
 @Component({
   selector: 'page-ilanver',
   templateUrl: 'ilanver.html'
@@ -10,7 +12,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class IlanverPage {
   ilanlar:FirebaseListObservable<any>;
   public ilanData:any = {};
-  constructor(public navCtrl: NavController, public angularFire:AngularFire) {}
+  constructor(public navCtrl: NavController, public angularFire:AngularFire, public baseService:BaseService) {}
 
   ionViewDidLoad() {
     console.log('Hello IlanverPage Page');
@@ -20,7 +22,8 @@ export class IlanverPage {
   ekle(){
     this.ilanData.ilaniVerenKullaniciId = this.angularFire.auth.getAuth().uid;
     this.ilanlar.push(this.ilanData).then((data:any)=>{
-      console.log(data);
+      //console.log(data);
+      this.baseService.presentToast("Kaydınız Başarıyla Alınmıştır...");
       this.navCtrl.pop();
     }).catch((err)=>{
       console.log(err);
