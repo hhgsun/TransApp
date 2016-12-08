@@ -9,6 +9,11 @@ page-anasayfa {
         // display: none !important;
     }
 
+    // ion segment
+    ion-segment.segment {
+        width: 80%;
+        margin: 0 auto;
+    }
     // ion slide
     ion-slide.swiper-slide{
         padding-top: 44px; //88px;
