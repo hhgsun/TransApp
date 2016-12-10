@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides } from 'ionic-angular';
+import { NavController, Slides, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 
 import { SearchComponent } from '../components/search'
@@ -14,7 +14,7 @@ export class AnasayfaPage {
   public topTabs = "ilanlar";
   public searchText = "";
 
-  constructor(public navCtrl: NavController, public angularFire: AngularFire) {
+  constructor(public navCtrl: NavController, public angularFire: AngularFire, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -41,6 +41,11 @@ export class AnasayfaPage {
       this.slider.slideTo(1, 100);
     }
   }
+  enableSlide() {
+    console.log("BU KISIMDA İLK VE SON  SLİDERLARDA KAYMA YAPMA");
+    console.log("enableSlide");
+    
+  }
 
   searchComponenteGit() {
     this.navCtrl.push(SearchComponent);
@@ -50,6 +55,32 @@ export class AnasayfaPage {
   searchGet(event) {
     var val = event.target.value;
     this.searchText = val;
+  }
+
+  filtreAc() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('İlanları Filtrele');
+
+    alert.addInput({
+      type: 'radio',
+      label: 'İlanlar',
+      value: 'ilan',
+      checked: true
+    });
+    alert.addInput({
+      type: 'radio',
+      label: 'Firmalar',
+      value: 'firma',
+      checked: false
+    })
+    alert.addButton('Vazgeç');
+    alert.addButton({
+      text: 'Uygula',
+      handler: data => {
+        console.log(data);
+      }
+    });
+    alert.present();
   }
 
 }

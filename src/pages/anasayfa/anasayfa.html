@@ -17,6 +17,9 @@
       </ion-segment-button>
     </ion-segment>
     <ion-buttons end style="margin-left: 10px;">
+      <button ion-button icon-only (click)="filtreAc()">
+        <ion-icon name="funnel"></ion-icon> &nbsp;
+      </button>
       <button ion-button icon-only (click)="searchComponenteGit()">
         <ion-icon name="search"></ion-icon> &nbsp;
       </button>
@@ -43,7 +46,7 @@
 
 <ion-slides #homeSlider (ionDidChange)="onSlideChanged()">
 
-  <ion-slide>
+  <ion-slide on-swipe="enableSlide()" onscroll="true">
     <ilanlar></ilanlar>
   </ion-slide>
 
