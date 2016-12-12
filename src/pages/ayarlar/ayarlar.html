@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar color="royal">
+    <ion-title>Ayarlar</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="ayarlariKaydet()">
+        <ion-icon name="checkmark"></ion-icon> Kaydet
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Bildirimlere İzin Ver</ion-label>
+      <ion-toggle checked="true"></ion-toggle>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button icon-left (click)="cikisYap()">
+    <ion-icon name="exit"></ion-icon>
+     Çıkış Yap
+  </button>
+  
+</ion-content>

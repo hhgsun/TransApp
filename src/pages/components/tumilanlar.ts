@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 
-import { IlanDetayComponent } from '../components/ilandetay'
+import { IlandetayPage } from '../ilandetay/ilandetay'
 
 @Component({
-    selector: 'ilanlar',
-    templateUrl: 'ilanlar.html'
+    selector: 'tumilanlar',
+    templateUrl: 'tumilanlar.html'
 })
-export class IlanlarComponent {
+export class TumilanlarComponent {
+    @Input() filterText: any;
+
     public ilanlar: any = [];
     public ilanSayisi = 10;
     public infiniteDahaFazla = true;
@@ -16,6 +18,7 @@ export class IlanlarComponent {
 
     constructor(public angularFire: AngularFire, public navController: NavController) {
         this.loadIlanlar();
+        console.log(this.filterText);
     }
 
     loadIlanlar() {
@@ -44,7 +47,7 @@ export class IlanlarComponent {
     }
 
     ilanDetay(ilan) {
-        this.navController.push(IlanDetayComponent, {
+        this.navController.push(IlandetayPage, {
             item: ilan
         })
     }
@@ -65,4 +68,3 @@ export class IlanlarComponent {
         }, 500);
     }
 }
-

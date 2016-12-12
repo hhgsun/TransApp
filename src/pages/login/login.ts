@@ -38,31 +38,36 @@ export class LoginPage {
             console.log(data.uid);
             //this.navCtrl.setRoot(IlanlarPage);
         }).catch((err) => {
-            alert("Hata: "+ err.message);
-            console.log("Error message: "+err.message);
+            alert("Hata: " + err.message);
+            console.log("Error message: " + err.message);
         });
     }
 
     register() {
-        var credentials: any = { email: this.registerData.email, password: this.registerData.password, displayName: this.registerData.displayName }
-        this.angularFire.auth.createUser(credentials).then((data: any) => {
-            this.angularFire.database.object("users/" + data.uid).set({
-                userId: data.uid,
-                email: this.registerData.email,
-                ad: this.registerData.ad,
-                soyad: this.registerData.soyad
-            }).then((cal: any) => {
-                console.log(cal);
+        if (this.registerData.passwordRep == this.registerData.password) {
+            var credentials: any = { email: this.registerData.email, password: this.registerData.password, displayName: this.registerData.displayName }
+            this.angularFire.auth.createUser(credentials).then((data: any) => {
+                this.angularFire.database.object("users/" + data.uid).set({
+                    userId: data.uid,
+                    email: this.registerData.email,
+                    ad: this.registerData.ad,
+                    soyad: this.registerData.soyad,
+                    tcNo: this.registerData.tcNo
+                }).then((cal: any) => {
+                    console.log(cal);
+                })
             })
-        })
+        } else {
+            alert("Lütfen şifreniz tekrarı ile aynı olsun");
+        }
     }
 
     passReset() {
         var auth = firebase.auth();
-        auth.sendPasswordResetEmail(this.passResetData.email).then((data:any) => {
+        auth.sendPasswordResetEmail(this.passResetData.email).then((data: any) => {
             // Email sent.
             console.log("Mail adresinize link gönderildi");
-        },(error) => {
+        }, (error) => {
             // An error happened.
             console.log(error);
         });

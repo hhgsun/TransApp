@@ -28,7 +28,9 @@ export class HesabimPage {
       meslek: this.profile.meslek ? this.profile.meslek : null,
       tasitBilgisi: this.profile.tasitBilgisi ? this.profile.tasitBilgisi : null,
       cepTel: this.profile.cepTel ? this.profile.cepTel : null,
-      cepTelGosterilsinMi: this.profile.cepTelGosterilsinMi ? this.profile.cepTelGosterilsinMi : null
+      cepTelGosterilsinMi: this.profile.cepTelGosterilsinMi ? this.profile.cepTelGosterilsinMi : null,
+      bildirimlerAcik: this.profile.bildirimlerAcik ? this.profile.bildirimlerAcik : null,
+      hesapDurumu: this.profile.hesapDurumu ? this.profile.hesapDurumu : null
     }
     this.angularFire.database.object("users/" + this.profile.userId).update(updateObj).then((call) => {
       this.baseService.presentToast("Profiliniz Başarıyla Güncellendi");

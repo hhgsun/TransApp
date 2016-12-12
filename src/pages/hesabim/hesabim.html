@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="royal">
     <ion-title>Hesabım</ion-title>
-    <ion-buttons end style="margin-left: 10px;">
+    <ion-buttons end>
       <button ion-button icon-only (click)="bilgileriKaydet()">
         <ion-icon name="checkmark"></ion-icon> Kaydet
       </button>
@@ -50,5 +50,25 @@
       <ion-toggle [(ngModel)]="profile.cepTelGosterilsinMi" checked="false"></ion-toggle>
     </ion-item>
 
+    <ion-item>
+      <ion-label>Bildirimlere İzin Ver</ion-label>
+      <ion-toggle [(ngModel)]="profile.bildirimlerAcik" checked="true"></ion-toggle>
+    </ion-item>
+
   </ion-list>
+
+  <ion-list radio-group [(ngModel)]="profile.hesapDurumu">
+    <ion-list-header>
+      Hesap Durumum
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Taşıt Sahibi veya Şöför (Taşıyıcı)</ion-label>
+      <ion-radio value="tasiyici"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label>Yük Sahibi</ion-label>
+      <ion-radio value="yukSahibi"></ion-radio>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

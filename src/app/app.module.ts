@@ -1,16 +1,20 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
+// Pages
 import { LoginPage } from '../pages/login/login';
 import { AnasayfaPage } from '../pages/anasayfa/anasayfa';
+import { IlandetayPage } from '../pages/ilandetay/ilandetay';
 import { IlanverPage } from '../pages/ilanver/ilanver';
 import { HesabimPage } from '../pages/hesabim/hesabim';
+import { AyarlarPage } from '../pages/ayarlar/ayarlar';
+import { IlanlarimPage } from '../pages/ilanlarim/ilanlarim';
 import { Page1 } from '../pages/page1/page1';
 import { Page2 } from '../pages/page2/page2';
 
 // Components
-import { IlanlarComponent } from '../pages/components/ilanlar';
-import { IlanDetayComponent } from '../pages/components/ilandetay';
+import { TumilanlarComponent } from '../pages/components/tumilanlar';
 import { SearchComponent } from '../pages/components/search';
 
 // Service
@@ -33,12 +37,14 @@ export const firebaseConfig = {
     MyApp,
     LoginPage,
     AnasayfaPage,
+    IlandetayPage,
     IlanverPage,
     HesabimPage,
+    AyarlarPage,
+    IlanlarimPage,
     Page1,
     Page2,
-    IlanlarComponent,
-    IlanDetayComponent,
+    TumilanlarComponent,
     SearchComponent
   ],
   imports: [
@@ -56,12 +62,14 @@ export const firebaseConfig = {
     MyApp,
     LoginPage,
     AnasayfaPage,
+    IlandetayPage,
     IlanverPage,
     HesabimPage,
+    AyarlarPage,
+    IlanlarimPage,
     Page1,
     Page2,
-    IlanlarComponent,
-    IlanDetayComponent,
+    TumilanlarComponent,
     SearchComponent
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, BaseService]

@@ -23,17 +23,17 @@
     <br>
     <a (click)="digerSayfa('kayitOlPage')" block>Kayıt Ol</a>
     <a (click)="digerSayfa('sifreYenilePage')" block>Şifre Yenile</a>
-        
+
 </ion-content>
 
 <ion-content padding *ngIf="kayitOlPage != null && sifreYenilePage == null">
     <h2>Kayıt Ol</h2>
-    
+
     <form (ngSubmit)="register()">
         <ion-item>
             <ion-label>Email</ion-label>
             <ion-input type="email" [(ngModel)]="registerData.email" name="email"></ion-input>
-        </ion-item>        
+        </ion-item>
         <ion-item>
             <ion-label>Ad</ion-label>
             <ion-input type="text" [(ngModel)]="registerData.ad" name="ad"></ion-input>
@@ -46,18 +46,22 @@
             <ion-label>Şifre</ion-label>
             <ion-input type="password" [(ngModel)]="registerData.password" name="password"></ion-input>
         </ion-item>
+        <ion-item>
+            <ion-label>Şifre Tekrarı</ion-label>
+            <ion-input type="password" [(ngModel)]="registerData.passwordRep" name="passwordRep"></ion-input>
+        </ion-item>
         <button ion-button type="submit" block>Kayıt Ol</button>
-    </form>        
+    </form>
 </ion-content>
 
 <ion-content padding *ngIf="kayitOlPage == null && sifreYenilePage != null">
     <h2>Şifre Değiştir</h2>
-    
+
     <form (ngSubmit)="passReset()">
         <ion-item>
             <ion-label>Email</ion-label>
             <ion-input type="email" [(ngModel)]="passResetData.email" name="email"></ion-input>
         </ion-item>
         <button ion-button type="submit" block>Gönder</button>
-    </form>        
+    </form>
 </ion-content>

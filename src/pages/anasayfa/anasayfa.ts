@@ -12,13 +12,13 @@ import { IlanverPage } from '../ilanver/ilanver'
 export class AnasayfaPage {
   @ViewChild('homeSlider') slider: Slides;
   public topTabs = "ilanlar";
-  public searchText = "";
-
+  public test: any;
   constructor(public navCtrl: NavController, public angularFire: AngularFire, public alertCtrl: AlertController) {
+    this.test = {baslik: 'test'};
   }
 
   ionViewDidLoad() {
-    console.log("Anasayfa");
+    // console.log("Anasayfa");
   }
 
   ilanVer() {
@@ -41,21 +41,11 @@ export class AnasayfaPage {
       this.slider.slideTo(1, 100);
     }
   }
-  enableSlide() {
-    console.log("BU KISIMDA İLK VE SON  SLİDERLARDA KAYMA YAPMA");
-    console.log("enableSlide");
-    
-  }
 
   searchComponenteGit() {
     this.navCtrl.push(SearchComponent);
   }
 
-
-  searchGet(event) {
-    var val = event.target.value;
-    this.searchText = val;
-  }
 
   filtreAc() {
     let alert = this.alertCtrl.create();
