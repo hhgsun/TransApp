@@ -1,25 +1,55 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>ilanver</ion-title>
+    <ion-title>İlan Ver</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-list>
+    <ion-list-header>
+      Yük Sahibi Olarak İlan Paylaşımı 
+      <!-- 
+        2 aşamalı ilan verme olsun:
+        ilk aşamada nereden nereye olsun
+        ikinci aşamada haritada yerler gösterilsin ve altına detay bilgilerden sonra ilan paylaşılsın
+        -->
+    </ion-list-header>
 
     <ion-item>
-      <ion-label fixed>Başlık</ion-label>
-      <ion-input type="text" [(ngModel)]="ilanData.baslik"></ion-input>
+      <ion-label color="primary" stacked>Firma veya Baslik</ion-label>
+      <ion-input type="text" [(ngModel)]="ilanData.firmaVeyaBaslik"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label fixed>Açıklama</ion-label>
+      <ion-label color="primary" stacked>Açıklama</ion-label>
       <ion-input type="text" [(ngModel)]="ilanData.aciklama"></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label color="primary" stacked>Nereden</ion-label>
+      <ion-input type="text" [(ngModel)]="ilanData.nereden"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Nereye</ion-label>
+      <ion-input type="text" [(ngModel)]="ilanData.nereye"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Tonaj</ion-label>
+      <ion-input type="number" [(ngModel)]="ilanData.tonaj"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" stacked>Yük Cinsi</ion-label>
+      <ion-input type="number" [(ngModel)]="ilanData.yukCinsi"></ion-input>
+    </ion-item>
+
   </ion-list>
-  <button ion-button (click)="ekle()">Ekle</button>
+  <div padding block style="text-align:center;">
+    <button ion-button round (click)="ekle()">İlanı Gönder</button>
+  </div>
 </ion-content>

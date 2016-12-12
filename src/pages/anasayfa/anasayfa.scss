@@ -1,5 +1,5 @@
 page-anasayfa {
-    background: #fff; // ios da bazı yerkeri siyah gösteriyor
+    //background: #fff; // ios da bazı yerkeri siyah gösteriyor
     
     // ion slide scroll bar
     .scroll-content::-webkit-scrollbar {
@@ -9,6 +9,8 @@ page-anasayfa {
         // display: none !important;
     }
 
+    /*
+    Anasayfa Slider Aktif olduğu zaman bu kısım aktif edilmeli
     // ion segment
     ion-segment.segment {
         width: 80%;
@@ -34,4 +36,5 @@ page-anasayfa {
     .toolbar-title-ios {
         text-align: left !important;
     }
+    */
 }
