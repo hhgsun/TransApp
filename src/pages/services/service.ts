@@ -3,7 +3,7 @@ import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
 
 import { Http, Headers } from '@angular/http';
-import { ToastController } from 'ionic-angular';
+import { ToastController, AlertController } from 'ionic-angular';
 
 //import * as firebase from "firebase";
 declare var window: any;
@@ -11,17 +11,26 @@ declare var window: any;
 @Injectable()
 export class BaseService {
 
-    constructor(public http: Http, public toastCtrl: ToastController) {
+    constructor(public http: Http, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     }
 
-    presentToast(message:string, duration?:number, showCloseButton?:boolean ) {
+    presentToast(message: string, duration?: number, showCloseButton?: boolean) {
         let toast = this.toastCtrl.create({
             message: message,
-            duration: duration ? duration : 3000,
-            showCloseButton : showCloseButton ? true : false,
-            closeButtonText : "Tamam"
+            duration: duration ? duration : 2000,
+            showCloseButton: showCloseButton ? true : false,
+            closeButtonText: "Tamam"
         });
         toast.present();
+    }
+
+    presentAlert(title:string, subTitle?:string) {
+        let alert = this.alertCtrl.create({
+            title: title,
+            subTitle: subTitle,
+            buttons: ['Tamam']
+        });
+        alert.present();
     }
 
     postNotification(konu: string, baslik: string, mesaj: string, token?: boolean, ses?: boolean, params?: any) {

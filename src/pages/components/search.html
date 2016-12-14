@@ -1,7 +1,9 @@
 <ion-header no-shadow>
-  <ion-navbar>
-    <ion-searchbar placeholder="Arama Yapın" (ionInput)="searchGet($event)"></ion-searchbar>
+  <ion-navbar *nav>
   </ion-navbar>
+  <ion-toolbar>
+        <ion-searchbar placeholder="Arama Yapın" [showCancelButton]="true" cancelButtonText="Vazgeç" (ionCancel)="geriDon()" (ionInput)="searchGet($event)"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>

@@ -1,55 +1,89 @@
 <ion-header>
-
-  <ion-navbar>
+  <ion-navbar *nav></ion-navbar>
+  <ion-toolbar>
     <ion-title>İlan Ver</ion-title>
-  </ion-navbar>
-
+    <ion-buttons end>
+      <button ion-button icon-only (click)="ilanIptal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-list>
-    <ion-list-header>
-      Yük Sahibi Olarak İlan Paylaşımı 
-      <!-- 
-        2 aşamalı ilan verme olsun:
-        ilk aşamada nereden nereye olsun
-        ikinci aşamada haritada yerler gösterilsin ve altına detay bilgilerden sonra ilan paylaşılsın
-        -->
-    </ion-list-header>
 
-    <ion-item>
-      <ion-label color="primary" stacked>Firma veya Baslik</ion-label>
-      <ion-input type="text" [(ngModel)]="ilanData.firmaVeyaBaslik"></ion-input>
-    </ion-item>
+  <!-- 1. Aşama Başlangıç ve Bitiş Yerleri alınır -->
+  <div *ngIf="aktifAsamaIndex == 1">
+    <ion-list>
+      <ion-item (click)="showAddressModal('nereden')">
+        <ion-label color="primary" stacked>Nereden</ion-label>
+        <ion-input type="text" [(ngModel)]="ilanData.baslangicYeri"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label color="primary" stacked>Açıklama</ion-label>
-      <ion-input type="text" [(ngModel)]="ilanData.aciklama"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="primary" stacked>Nereden</ion-label>
-      <ion-input type="text" [(ngModel)]="ilanData.nereden"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="primary" stacked>Nereye</ion-label>
-      <ion-input type="text" [(ngModel)]="ilanData.nereye"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="primary" stacked>Tonaj</ion-label>
-      <ion-input type="number" [(ngModel)]="ilanData.tonaj"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label color="primary" stacked>Yük Cinsi</ion-label>
-      <ion-input type="number" [(ngModel)]="ilanData.yukCinsi"></ion-input>
-    </ion-item>
-
-  </ion-list>
-  <div padding block style="text-align:center;">
-    <button ion-button round (click)="ekle()">İlanı Gönder</button>
+      <ion-item (click)="showAddressModal('nereye')">
+        <ion-label color="primary" stacked>Nereye</ion-label>
+        <ion-input type="text" [(ngModel)]="ilanData.bitisYeri"></ion-input>
+      </ion-item>
+      <ion-item style="display:none;"></ion-item><!-- son itemin border-bottom göstermediği için boş item koyduk -->
+    </ion-list>
+    
+    <div padding block style="text-align:center;">
+      <button ion-button round icon-right (click)="ikinciAsamayaGec()">
+        Devam Et
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </div>
   </div>
+  <!--// 1-->
+
+  <!-- 2. Aşama ilanın Detay Bilgileri Alınır -->
+  <div *ngIf="aktifAsamaIndex == 2">
+    <ion-list>
+      <ion-item-divider>
+        Yük Sahibi Olarak İlan Paylaşımı
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Açıklama</ion-label>
+        <ion-input type="text" [(ngModel)]="ilanData.aciklama"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Yük Cinsi</ion-label>
+        <ion-input type="text" [(ngModel)]="ilanData.yukCinsi"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-item style="margin-left:-15px; border-bottom:1px solid #dedede;">
+            <ion-label color="primary" stacked>Tonaj</ion-label>
+            <ion-input type="number" [(ngModel)]="ilanData.tonaj"></ion-input>
+          </ion-item>
+        </ion-label>
+        <div item-content style="margin-top:20px;">
+          <ion-list radio-group [(ngModel)]="ilanData.tonajTuru">
+            <ion-item>
+              <ion-label>Ton</ion-label>
+              <ion-radio value="ton" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Kilogram</ion-label>
+              <ion-radio value="kg"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-item>
+
+    </ion-list>
+
+    <div padding block style="text-align:center;">
+      <button ion-button round icon-left color="light" (click)="geriAsamayaGit()">
+      <ion-icon name="arrow-back"></ion-icon>
+      Geri
+    </button>
+      <button ion-button round (click)="gonder()">İlanı Gönder</button>
+    </div>
+  </div>
+  <!--// 2-->
+
 </ion-content>

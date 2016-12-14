@@ -16,6 +16,7 @@ import { Page2 } from '../pages/page2/page2';
 // Components
 import { TumilanlarComponent } from '../pages/components/tumilanlar';
 import { SearchComponent } from '../pages/components/search';
+import { AutocompletePage } from '../pages/components/autocomplete';
 
 // Service
 import { BaseService } from '../pages/services/service';
@@ -45,7 +46,8 @@ export const firebaseConfig = {
     Page1,
     Page2,
     TumilanlarComponent,
-    SearchComponent
+    SearchComponent,
+    AutocompletePage
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -70,7 +72,8 @@ export const firebaseConfig = {
     Page1,
     Page2,
     TumilanlarComponent,
-    SearchComponent
+    SearchComponent,
+    AutocompletePage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, BaseService]
 })

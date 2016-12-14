@@ -48,4 +48,8 @@ export class SearchComponent {
         });
     }
 
+    geriDon(){
+        this.navController.pop();
+    }
+
 }

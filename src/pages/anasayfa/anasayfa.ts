@@ -88,12 +88,12 @@ export class AnasayfaPage {
     alert.addInput({
       type: 'text',
       label: 'Baslangıç Yeri',
-      placeholder: 'Baslangıç Yeri: İstanbul, Kocaeli...'
+      placeholder: 'Nereden: İstanbul, Kocaeli...'
     });
     alert.addInput({
       type: 'text',
       label: 'Bitiş Yeri',
-      placeholder: 'Bitiş Yeri: Mersin, Van...'
+      placeholder: 'Nereye: Mersin, Van...'
     })
     alert.addButton('Vazgeç');
     alert.addButton({
