@@ -12,7 +12,7 @@ export class AutocompletePage {
   autocomplete;
   service = new google.maps.places.AutocompleteService();
 
-  constructor(public viewCtrl: ViewController, private zone: NgZone, public platform: Platform, public navCtrl:NavController) {
+  constructor(public viewCtrl: ViewController, private zone: NgZone, public platform: Platform, public navCtrl: NavController) {
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
@@ -28,7 +28,22 @@ export class AutocompletePage {
   }
 
   chooseItem(item: any) {
-    this.viewCtrl.dismiss(item);
+    var callBackData = {
+      prediction: item,
+      location: null
+    }
+    // seçilen adresin lat lot değerleri
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': item.description }, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        callBackData.location = results[0].geometry.location;
+        // seçildikten son dismiss ile datayı yolluyoruz;
+        this.viewCtrl.dismiss(callBackData);
+      } else {
+        console.log("Can't find address: " + status);
+        alert("Adres bulunamıyor: " + status)
+      }
+    });
   }
 
   updateSearch() {
@@ -46,7 +61,7 @@ export class AutocompletePage {
       me.autocompleteItems = [];
       me.zone.run(() => {
         predictions.forEach((prediction) => {
-          me.autocompleteItems.push(prediction.description);
+          me.autocompleteItems.push(prediction);
         });
       });
     });

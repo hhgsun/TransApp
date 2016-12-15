@@ -38,12 +38,13 @@ export class IlanverPage {
   showAddressModal(neresiIcin: string) {
     let modal = this.modalCtrl.create(AutocompletePage);
     //let me = this;
-    modal.onDidDismiss(data => {
+    modal.onDidDismiss((data:any) => {
       if (data) {
+        console.log(data);
         if (neresiIcin == "nereden") {
-          this.ilanData.baslangicYeri = data;
+          this.ilanData.baslangicYeri = data.prediction.description;
         } else {//neresiIcin == "nereye" olur
-          this.ilanData.bitisYeri = data;
+          this.ilanData.bitisYeri = data.prediction.description;
         }
       }
     });
