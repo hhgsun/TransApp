@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 
 import { SearchComponent } from '../components/search'
@@ -21,7 +21,7 @@ export class AnasayfaPage {
   public infiniteDahaFazla = true;
   public gelenIlanlarLength = 0;
 
-  constructor(public navCtrl: NavController, public angularFire: AngularFire, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public angularFire: AngularFire, public modalCtrl:ModalController, public alertCtrl: AlertController) {
 
   }
 
@@ -77,9 +77,10 @@ export class AnasayfaPage {
   }
 
   searchComponenteGit() {
-    this.navCtrl.push(SearchComponent);
+    //this.navCtrl.push(SearchComponent);
+    let modal = this.modalCtrl.create(SearchComponent);
+    modal.present();
   }
-
 
   filtreAc() {
     let alert = this.alertCtrl.create();

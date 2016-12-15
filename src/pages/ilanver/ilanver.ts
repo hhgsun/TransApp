@@ -18,7 +18,6 @@ export class IlanverPage {
   public aktifAsamaIndex = 1; //ilan verme 2 aşamadan oluyor 1.aşamada nereden nereye 2. aşama diğer detaylar belki 3,4..aşamalar olur
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public angularFire: AngularFire, public baseService: BaseService) {
-
   }
 
   ionViewDidLoad() {
@@ -56,7 +55,7 @@ export class IlanverPage {
     if (this.ilanData.baslangicYeri && this.ilanData.bitisYeri) {
       this.aktifAsamaIndex = 2;
     } else {
-      this.baseService.presentAlert("Lütfen alanları dikkatli doldurunuz");
+      this.baseService.presentAlert("lütfen Başlangıç ve Bitiş noktası seçiniz");
     }
     console.log(this.aktifAsamaIndex);
   }

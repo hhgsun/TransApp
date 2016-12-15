@@ -21,21 +21,22 @@ export class MyApp {
 
   rootPage: any;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
-  aktifKullanici:any;
+  aktifKullanici: any;
 
-  constructor(public platform: Platform, public angularFire:AngularFire) {
-    angularFire.auth.subscribe((auth:any)=>{
-      if(auth){
+  constructor(public platform: Platform, public angularFire: AngularFire) {
+    angularFire.auth.subscribe((auth: any) => {
+      if (auth) {
         this.rootPage = AnasayfaPage;
-        this.angularFire.database.object("users/"+auth.uid).subscribe(authData=>{
+        this.angularFire.database.object("users/" + auth.uid).subscribe(authData => {
           this.aktifKullanici = authData;
         })
-      }else{
+      } else {
         this.rootPage = LoginPage;
       }
     })
+    
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -46,7 +47,6 @@ export class MyApp {
       { title: 'Page One', component: Page1 },
       { title: 'Page Two', component: Page2 }
     ];
-
   }
 
   initializeApp() {
@@ -63,7 +63,7 @@ export class MyApp {
     this.nav.push(page.component)
   }
 
-  hesabimaGit(){
+  hesabimaGit() {
     this.nav.push(HesabimPage);
   }
 }

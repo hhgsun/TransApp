@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar placeholder="Şehir Bul" [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+    <ion-searchbar #searchbar placeholder="Şehir Bul" [(ngModel)]="autocomplete.query" (ionInput)="updateSearch()"></ion-searchbar>
+    <ion-buttons end>
+      <button ion-button icon-left (click)="dismiss()">
+        <ion-icon name="close"></ion-icon> Vazgeç
+      </button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, Searchbar, ViewController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 import { IlandetayPage } from '../ilandetay/ilandetay'
 
@@ -8,8 +8,18 @@ import { IlandetayPage } from '../ilandetay/ilandetay'
     templateUrl: 'search.html'
 })
 export class SearchComponent {
+    @ViewChild('searchbar') searchbar: Searchbar;
+
     public ilanlar = [];
-    constructor(public angularFire: AngularFire, public navController: NavController) {
+    constructor(public angularFire: AngularFire, public navController: NavController, public viewController: ViewController) {
+    }
+
+    ionViewDidEnter() {
+        //this.searchbar.setFocus();
+    }
+
+    dismiss() {
+        this.viewController.dismiss();
     }
 
     items() {
@@ -47,9 +57,4 @@ export class SearchComponent {
             item: ilan
         });
     }
-
-    geriDon(){
-        this.navController.pop();
-    }
-
 }

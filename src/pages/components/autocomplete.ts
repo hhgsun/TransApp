@@ -1,5 +1,5 @@
-import { Component, NgZone } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { Component, NgZone, ViewChild } from '@angular/core';
+import { ViewController, Searchbar, Platform, NavController } from 'ionic-angular';
 
 declare var google: any;
 
@@ -7,11 +7,12 @@ declare var google: any;
   templateUrl: 'autocomplete.html'
 })
 export class AutocompletePage {
+  @ViewChild('searchbar') searchbar: Searchbar;
   autocompleteItems;
   autocomplete;
   service = new google.maps.places.AutocompleteService();
 
-  constructor(public viewCtrl: ViewController, private zone: NgZone) {
+  constructor(public viewCtrl: ViewController, private zone: NgZone, public platform: Platform, public navCtrl:NavController) {
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
@@ -19,10 +20,7 @@ export class AutocompletePage {
   }
 
   ionViewDidEnter() {
-    let elem = document.querySelector('input');
-    if (elem) {
-      elem.focus();
-    }
+    this.searchbar.setFocus();
   }
 
   dismiss() {

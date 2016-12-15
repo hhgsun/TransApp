@@ -16,17 +16,25 @@
   <div *ngIf="aktifAsamaIndex == 1">
     <ion-list>
       <ion-item (click)="showAddressModal('nereden')">
-        <ion-label color="primary" stacked>Nereden</ion-label>
-        <ion-input type="text" [(ngModel)]="ilanData.baslangicYeri"></ion-input>
+        <ion-icon name="flag" item-left></ion-icon>
+        Nereden
+        <p *ngIf="ilanData.baslangicYeri">{{ilanData.baslangicYeri}}</p>
+        <p *ngIf="ilanData.baslangicYeri == null">Başlangıç noktası seçiniz</p>
+        <ion-icon *ngIf="ilanData.baslangicYeri" item-right name="checkmark"></ion-icon>
       </ion-item>
 
       <ion-item (click)="showAddressModal('nereye')">
-        <ion-label color="primary" stacked>Nereye</ion-label>
-        <ion-input type="text" [(ngModel)]="ilanData.bitisYeri"></ion-input>
+        <ion-icon name="pin" item-left></ion-icon>
+        Nereye
+        <p *ngIf="ilanData.bitisYeri">{{ilanData.bitisYeri}}</p>
+        <p *ngIf="ilanData.bitisYeri == null">Bitiş noktası seçiniz</p>
+        <ion-icon *ngIf="ilanData.bitisYeri" item-right name="checkmark"></ion-icon>
       </ion-item>
-      <ion-item style="display:none;"></ion-item><!-- son itemin border-bottom göstermediği için boş item koyduk -->
+
+      <ion-item style="display:none;"></ion-item>
+      <!-- son itemin border-bottom göstermediği için boş item koyduk -->
     </ion-list>
-    
+
     <div padding block style="text-align:center;">
       <button ion-button round icon-right (click)="ikinciAsamayaGec()">
         Devam Et
