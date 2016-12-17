@@ -15,7 +15,7 @@ export class SearchComponent {
     }
 
     ionViewDidEnter() {
-        //this.searchbar.setFocus();
+        this.searchbar.setFocus();
     }
 
     dismiss() {

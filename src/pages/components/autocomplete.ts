@@ -7,6 +7,7 @@ declare var google: any;
   templateUrl: 'autocomplete.html'
 })
 export class AutocompletePage {
+  // İLAN EKLERKEN GOOGLE MAP DEN OTOMATİK ŞEHİR TAMAMLAMA
   @ViewChild('searchbar') searchbar: Searchbar;
   autocompleteItems;
   autocomplete;
