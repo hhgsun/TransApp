@@ -28,20 +28,30 @@ export class AutocompletePage {
     this.viewCtrl.dismiss();
   }
 
-  chooseItem(item: any) {
+  chooseItem(prediction: any) { //seçilen adres metin data
+    var terms = [];
+    prediction.terms.forEach(term => {
+      console.log(term.value)
+      terms.push(term.value);
+    });
     var callBackData = {
-      prediction: item,
+      adres: prediction.description,
+      bolgeler: terms,
       location: null
     }
     // seçilen adresin lat lot değerleri
     var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': item.description }, (results, status) => {
+    geocoder.geocode({ 'address': prediction.description }, (results, status) => {
       if (status == google.maps.GeocoderStatus.OK) {
-        callBackData.location = results[0].geometry.location;
+        var location = {
+          lat:results[0].geometry.location.lat(),
+          lng:results[0].geometry.location.lng()
+        }
+        callBackData.location = location;
         // seçildikten son dismiss ile datayı yolluyoruz;
         this.viewCtrl.dismiss(callBackData);
       } else {
-        console.log("Can't find address: " + status);
+        console.log("Adres bulunamıyor: " + status);
         alert("Adres bulunamıyor: " + status)
       }
     });

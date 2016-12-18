@@ -18,80 +18,79 @@
       <ion-item (click)="showAddressModal('nereden')">
         <ion-icon name="flag" item-left></ion-icon>
         Nereden
-        <p *ngIf="ilanData.baslangicYeri">{{ilanData.baslangicYeri}}</p>
-        <p *ngIf="ilanData.baslangicYeri == null">Başlangıç noktası seçiniz</p>
-        <ion-icon *ngIf="ilanData.baslangicYeri" item-right name="checkmark"></ion-icon>
+        <p *ngIf="ilanData.baslangic">{{ilanData.baslangic.adres}}</p>
+        <p *ngIf="ilanData.baslangic == null">Başlangıç noktası seçiniz</p>
+        <ion-icon *ngIf="ilanData.baslangic" item-right name="checkmark"></ion-icon>
       </ion-item>
 
       <ion-item (click)="showAddressModal('nereye')">
         <ion-icon name="pin" item-left></ion-icon>
         Nereye
-        <p *ngIf="ilanData.bitisYeri">{{ilanData.bitisYeri}}</p>
-        <p *ngIf="ilanData.bitisYeri == null">Bitiş noktası seçiniz</p>
-        <ion-icon *ngIf="ilanData.bitisYeri" item-right name="checkmark"></ion-icon>
+        <p *ngIf="ilanData.bitis">{{ilanData.bitis.adres}}</p>
+        <p *ngIf="ilanData.bitis == null">Bitiş noktası seçiniz</p>
+        <ion-icon *ngIf="ilanData.bitis" item-right name="checkmark"></ion-icon>
       </ion-item>
-
-      <ion-item style="display:none;"></ion-item>
       <!-- son itemin border-bottom göstermediği için boş item koyduk -->
+      <ion-item style="display:none;"></ion-item>
     </ion-list>
-
     <div padding block style="text-align:center;">
-      <button ion-button round icon-right (click)="ikinciAsamayaGec()">
-        Devam Et
-        <ion-icon name="arrow-forward"></ion-icon>
-      </button>
+            <button ion-button round icon-right (click)="ikinciAsamayaGec()">
+                    Devam Et
+                    <ion-icon name="arrow-forward"></ion-icon>
+            </button>
     </div>
+    <div #map id="map"></div>
   </div>
   <!--// 1-->
 
-  <!-- 2. Aşama ilanın Detay Bilgileri Alınır -->
-  <div *ngIf="aktifAsamaIndex == 2">
-    <ion-list>
-      <ion-item-divider>
-        Yük Sahibi Olarak İlan Paylaşımı
-      </ion-item-divider>
+<!-- 2. Aşama ilanın Detay Bilgileri Alınır -->
+<div *ngIf="aktifAsamaIndex == 2">
+  <ion-list>
+    <ion-item-divider>
+      Yük Sahibi Olarak İlan Paylaşımı
+    </ion-item-divider>
 
-      <ion-item>
-        <ion-label color="primary" stacked>Açıklama</ion-label>
-        <ion-input type="text" [(ngModel)]="ilanData.aciklama"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Açıklama</ion-label>
+      <ion-input type="text" [(ngModel)]="ilanData.aciklama"></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label color="primary" stacked>Yük Cinsi</ion-label>
-        <ion-input type="text" [(ngModel)]="ilanData.yukCinsi"></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Yük Cinsi</ion-label>
+      <ion-input type="text" [(ngModel)]="ilanData.yukCinsi"></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>
-          <ion-item style="margin-left:-15px; border-bottom:1px solid #dedede;">
-            <ion-label color="primary" stacked>Tonaj</ion-label>
-            <ion-input type="number" [(ngModel)]="ilanData.tonaj"></ion-input>
-          </ion-item>
-        </ion-label>
-        <div item-content style="margin-top:20px;">
-          <ion-list radio-group [(ngModel)]="ilanData.tonajTuru">
-            <ion-item>
-              <ion-label>Ton</ion-label>
-              <ion-radio value="ton" checked></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label>Kilogram</ion-label>
-              <ion-radio value="kg"></ion-radio>
-            </ion-item>
-          </ion-list>
-        </div>
-      </ion-item>
+    <ion-item>
+      <ion-label>
+        <ion-item style="margin-left:-15px; border-bottom:1px solid #dedede;">
+<ion-label color="primary" stacked>Tonaj</ion-label>
+<ion-input type="number" [(ngModel)]="ilanData.tonaj"></ion-input>
+</ion-item>
+</ion-label>
+<div item-content style="margin-top:20px;">
+<ion-list radio-group [(ngModel)]="ilanData.tonajTuru">
+  <ion-item>
+    <ion-label>Ton</ion-label>
+    <ion-radio value="ton" checked></ion-radio>
+  </ion-item>
+  <ion-item>
+    <ion-label>Kilogram</ion-label>
+    <ion-radio value="kg"></ion-radio>
+  </ion-item>
+</ion-list>
+</div>
+</ion-item>
 
-    </ion-list>
+</ion-list>
 
-    <div padding block style="text-align:center;">
-      <button ion-button round icon-left color="light" (click)="geriAsamayaGit()">
+<div padding block style="text-align:center;">
+<button ion-button round icon-left color="light" (click)="geriAsamayaGit()">
       <ion-icon name="arrow-back"></ion-icon>
       Geri
     </button>
-      <button ion-button round (click)="gonder()">İlanı Gönder</button>
-    </div>
-  </div>
-  <!--// 2-->
+<button ion-button round (click)="gonder()">İlanı Gönder</button>
+</div>
+</div>
+<!--// 2-->
 
 </ion-content>
