@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, Platform } from 'ionic-angular';
 
-import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng, GoogleMapsMarkerOptions, GoogleMapsMarker } from 'ionic-native';
+import {
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapsLatLng,
+  GoogleMapsMarkerOptions,
+  GoogleMapsMarker,
+  CameraPosition
+} from 'ionic-native';
 
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
@@ -18,7 +25,11 @@ export class IlanverPage {
   public ilanData: any = {};
   public aktifAsamaIndex = 1; //ilan verme 2 aşamadan oluyor 1.aşamada nereden nereye 2. aşama diğer detaylar belki 3,4..aşamalar olur
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public angularFire: AngularFire, public baseService: BaseService) {
+  public mapGoster = true;
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public angularFire: AngularFire, public baseService: BaseService, public platform: Platform) {
+    this.platform.ready().then(() => {
+      this.initMap();
+    })
   }
 
   ionViewDidLoad() {
@@ -37,19 +48,18 @@ export class IlanverPage {
   }
 
   showAddressModal(neresiIcin: string) {
+    this.mapGoster = false;
     let modal = this.modalCtrl.create(AutocompletePage);
     //let me = this;
     modal.onDidDismiss((locationData: any) => {
+      this.mapGoster = true;
+      this.initMap();
       if (locationData) {
         if (neresiIcin == "nereden") {
           this.ilanData.baslangic = locationData;
         } else {//neresiIcin == "nereye" olur
           this.ilanData.bitis = locationData;
         }
-      }
-      if(this.ilanData.baslangic && this.ilanData.bitis) {
-        //this.ngAfterViewInit();
-        console.log("map guncellenmeli bu aşamada lat lng degerleri gönderilmeli");
       }
     });
     modal.present();
@@ -72,45 +82,54 @@ export class IlanverPage {
     this.navCtrl.pop();
   }
 
-  // Haritayı yalnızca görünüm başlatıldıktan sonra yükle ngAfterViewInit
-  ngAfterViewInit() {
+  // Haritayı yalnızca görünüm başlatıldıktan sonra yükle ngAfterViewInit()
+  initMap() {
     let element: HTMLElement = document.getElementById('map');
-
-    let map = new GoogleMap(element,{});
+    let map = new GoogleMap(element, {
+      center: { lat: 41.008238, lng: 28.978359 },
+      zoom: 10
+    });
 
     // listen to MAP_READY event
-    map.one(GoogleMapsEvent.MAP_READY).then(() => this.baseService.presentToast("MAPS HAZIR",3000));
-
-    /*
-    var lat = this.ilanData.baslangic.location.lat ? this.ilanData.baslangic.location.lat : 41.015137;
-    var lng = this.ilanData.baslangic.location.lng ? this.ilanData.baslangic.location.lng : 28.979530;
-    */
+    map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      this.baseService.presentToast("MAPS HAZIR", 3000)
+    });
 
     // create LatLng object
-    let latlng: GoogleMapsLatLng = new GoogleMapsLatLng(41.008238, 28.978359);
-    /*
-    latlng.lat = this.ilanData.baslangic.location.lat;
-    latlng.lng = this.ilanData.baslangic.location.lng;
-    */
+    let latlng: GoogleMapsLatLng = new GoogleMapsLatLng(41.015137, 28.979530);
+
+    if (this.ilanData.baslangic && this.ilanData.baslangic) {
+      //latlng.lat = this.ilanData.baslangic.location.lat;
+      //latlng.lng = this.ilanData.baslangic.location.lng;
+    }
+
+    const neredenLatLng = new GoogleMapsLatLng(35.548852, 139.784086);
+    const nereyeLatLng = new GoogleMapsLatLng(37.615223, -122.389979);
+
+    map.addPolyline({
+      points: [
+        neredenLatLng,
+        nereyeLatLng
+      ],
+      color: '#AA00FF',
+      width: 10
+    })
 
     // create CameraPosition
-    /*
     let position: CameraPosition = {
       target: latlng,
       zoom: 9,
-      tilt: 30
+      tilt: 30,
     };
 
     // move the map's camera to position
     map.moveCamera(position);
-    */
 
     // create new marker
     let markerOptions: GoogleMapsMarkerOptions = {
       position: latlng,
-      title: "Seçilen Adres"
+      title: "Seçilen Adres 2"
     };
-
     map.addMarker(markerOptions)
       .then((marker: GoogleMapsMarker) => {
         marker.showInfoWindow();

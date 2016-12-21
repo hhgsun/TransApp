@@ -1,6 +1,20 @@
 page-ilanver {
-    #map {
-        height: 200px;
-        border: 2px solid #387ef5;
-    }
+        .kordinat-secme {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            overflow: auto;
+            bottom: 0;
+        }
+        .map {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: 0;
+            z-index: -10;
+            border-bottom: 2px solid #387ef5;
+        }
+        #map {
+            height: 100%;
+        }
 }
