@@ -8,7 +8,13 @@ page-ilandetay {
             background: #fff;
         }
         #map {
-            height: 250px;
+            position: fixed;
+            width: 100%;
+            border-bottom: 2px solid #387ef5;
+            height: 200px;
             background: #fff;
+        }
+        .card {
+            margin-top: 200px;
         }
 }

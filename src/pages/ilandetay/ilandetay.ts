@@ -12,6 +12,8 @@ import {
     GoogleMapsLatLngBounds
 } from 'ionic-native';
 
+import { BaseService } from '../services/service'
+
 @Component({
     selector: 'page-ilandetay',
     templateUrl: 'ilandetay.html'
@@ -19,15 +21,16 @@ import {
 export class IlandetayPage {
     public ilan = null; //secilenIlan
     public aktifKullaniciId = null;
-    constructor(public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public platform: Platform) {
+    public map: GoogleMap;
+
+    constructor(public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public platform: Platform, public baseService: BaseService) {
         this.ilan = this.navParams.get("item");
         this.angularFire.auth.subscribe(aktifKullanici => {
             this.aktifKullaniciId = aktifKullanici.uid;
         })
         this.platform.ready().then(() => {
-            this.initMap();
+            this.installMap();
         })
-        console.log(this.ilan);
     }
 
     teklifVerAlert() {
@@ -65,23 +68,23 @@ export class IlandetayPage {
         prompt.present();
     }
 
-    initMap() {
+    installMap() {
         let element: HTMLElement = document.getElementById('map');
-        let map = new GoogleMap(element, {
-            center: { lat: 41.008238, lng: 28.978359 },
-            zoom: 10
-        });
-
+        this.map = new GoogleMap(element);
+        this.map.clear();
         // listen to MAP_READY event
-        map.one(GoogleMapsEvent.MAP_READY).then(() => {
-            console.log("Google Maps Hazır");
+        this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+            this.initMap();
         });
+    }
 
+    initMap() {
+        this.baseService.presentToast("MAP HAZIR init");
         let neredenLatLng = new GoogleMapsLatLng(this.ilan.baslangic.location.lat, this.ilan.baslangic.location.lng);
         let nereyeLatLng = new GoogleMapsLatLng(this.ilan.bitis.location.lat, this.ilan.bitis.location.lng);
 
         // Polyline
-        map.addPolyline({
+        this.map.addPolyline({
             points: [
                 neredenLatLng,
                 nereyeLatLng
@@ -96,29 +99,33 @@ export class IlandetayPage {
             position: neredenLatLng,
             title: this.ilan.baslangic.adres
         };
-        map.addMarker(marker1Options)
+        this.map.addMarker(marker1Options)
             .then((marker: GoogleMapsMarker) => {
                 marker.showInfoWindow();
             });
+        // -------
 
         // marker 2
         let marker2Options: GoogleMapsMarkerOptions = {
             position: nereyeLatLng,
             title: this.ilan.bitis.adres
         };
-        map.addMarker(marker2Options)
+        this.map.addMarker(marker2Options)
             .then((marker: GoogleMapsMarker) => {
+                marker.setIcon("../assets/img/flag.png");
                 marker.showInfoWindow();
             });
+        // -------
 
         // bounds: sınırlar, kamera genişliği
         var latLngBounds = new GoogleMapsLatLngBounds([neredenLatLng, nereyeLatLng]);
-        //this.map.moveCamera({target: latLngBounds....});
-        map.animateCamera({
+
+        //this.map.moveCamera({target: latLngBounds....}); veya animateCamera({..})
+        this.map.animateCamera({
             target: latLngBounds,
             tilt: 30,
             duration: 1000,
-            bearing: 15
+            bearing: 15,
         });
     }
 

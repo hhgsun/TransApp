@@ -12,6 +12,8 @@
     </button>
   </ion-fab>
 
+  <div #map id="map"></div>
+
   <ion-card>
     <ion-item>
       <ion-avatar item-left>
@@ -20,43 +22,6 @@
       <h2>{{ilan.ilaniVerenKullanici.displayName}}</h2>
       <p>{{ilan.ilaniVerenKullanici.email}}</p>
     </ion-item>
-
-    <img src="http://ionicframework.com/dist/preview-app/www/assets/img/advance-card-tmntr.jpg">
-
-    <ion-card-content>
-      <h2>{{ilan.baslik}}</h2>
-      <p>{{ilan.aciklama}}.</p>
-    </ion-card-content>
-
-    <ion-row>
-      <ion-col>
-        <button ion-button icon-left clear small>
-        <ion-icon name="thumbs-up"></ion-icon>
-        <div>12 Likes</div>
-      </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button icon-left clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
-      </ion-col>
-      <ion-col center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
-
-  </ion-card>
-
-  <ion-card>
-    <div #map id="map"></div>
-    <!--ion-fab right top>
-      <button ion-fab>
-      <ion-icon name="pin"></ion-icon>
-    </button>
-    </ion-fab-->
 
     <ion-item>
       <ion-icon name="football" item-left large></ion-icon>

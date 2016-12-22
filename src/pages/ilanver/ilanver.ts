@@ -31,7 +31,8 @@ export class IlanverPage {
     var gelenAsama = this.navParams.get("asama");
     if (gelenAsama) {
       this.aktifAsamaIndex = gelenAsama;
-      this.baseService.presentToast(this.aktifAsamaIndex + ". Aşamadasınız");
+      this.ilanData = this.navParams.get("ilanData"); //sıfır veri olan ilanData ya gelen ilanDatayı eşitliyoruz
+      this.baseService.presentToast(this.aktifAsamaIndex + ".Aşama");
     }
     this.platform.ready().then(() => {
       this.initMap();
@@ -47,7 +48,7 @@ export class IlanverPage {
     this.ilanlar.push(this.ilanData).then((data: any) => {
       //console.log(data);
       this.baseService.presentToast("Kaydınız Başarıyla Alınmıştır...");
-      this.navCtrl.pop();
+      this.navCtrl.setRoot(AnasayfaPage);
     }).catch((err) => {
       console.log(err);
     });
@@ -74,7 +75,11 @@ export class IlanverPage {
 
   ikinciAsamayaGec() {
     if (this.ilanData.baslangic && this.ilanData.bitis) {
-      this.navCtrl.push(IlanverPage, { asama: 2 });
+      this.navCtrl.push(IlanverPage, {
+        asama: 2,
+        ilanData: this.ilanData
+        //sayfa nav.push edilince ilanData sıfırlanıyor, bizde parametre olarak yolluyoruz sonra ilanData ya eşitlemek için 
+      });
     } else {
       this.baseService.presentAlert("lütfen Başlangıç ve Bitiş noktası seçiniz");
     }
@@ -99,6 +104,7 @@ export class IlanverPage {
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       this.baseService.presentToast("MAPS HAZIR", 3000);
     });
+    this.map.clear();
   }
 
   addMapCustom() {
@@ -142,9 +148,9 @@ export class IlanverPage {
     //this.map.moveCamera({target: latLngBounds....});
     this.map.animateCamera({
       target: latLngBounds,
-      tilt:30,
-      duration:1000,
-      bearing:15
+      tilt: 30,
+      duration: 1000,
+      bearing: 15
     });
   }
 
