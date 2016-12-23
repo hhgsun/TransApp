@@ -60,29 +60,35 @@
     </ion-item>
 
     <ion-item>
+      <ion-icon name="calendar" item-left></ion-icon>
+      <ion-label color="primary">İlanın Bitiş Tarihi</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [min]="minDate" [max]="maxDate" [(ngModel)]="ilanData.ilaninSonaErmeTarihi" cancelText="Vazgeç" doneText="Tamam"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
       <ion-label color="primary" stacked>Yük Cinsi</ion-label>
       <ion-input type="text" [(ngModel)]="ilanData.yukCinsi"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>
-        <ion-item style="margin-left:-15px; border-bottom:1px solid #dedede;">
-<ion-label color="primary" stacked>Tonaj</ion-label>
-<ion-input type="number" [(ngModel)]="ilanData.tonaj"></ion-input>
-</ion-item>
-</ion-label>
-<div item-content style="margin-top:20px;">
-<ion-list radio-group [(ngModel)]="ilanData.tonajTuru">
-  <ion-item>
-    <ion-label>Ton</ion-label>
-    <ion-radio value="ton" checked></ion-radio>
-  </ion-item>
-  <ion-item>
-    <ion-label>Kilogram</ion-label>
-    <ion-radio value="kg"></ion-radio>
-  </ion-item>
-</ion-list>
-</div>
+        <ion-label>
+          <ion-item style="margin-left:-15px; border-bottom:1px solid #dedede;">
+            <ion-label color="primary" stacked>Tonaj</ion-label>
+            <ion-input type="number" [(ngModel)]="ilanData.tonaj"></ion-input>
+          </ion-item>
+        </ion-label>
+        <div item-content style="margin-top:20px;">
+          <ion-list radio-group [(ngModel)]="ilanData.tonajTuru">
+            <ion-item>
+              <ion-label>Ton</ion-label>
+              <ion-radio value="ton" checked></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Kilogram</ion-label>
+              <ion-radio value="kg"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
 </ion-item>
 
 </ion-list>

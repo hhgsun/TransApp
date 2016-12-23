@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle></button>
-    <ion-title>{{ilan.baslik}}</ion-title>
+    <ion-title>{{ilan.aciklama}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,33 +15,34 @@
   <div #map id="map"></div>
 
   <ion-card>
-    <ion-item>
+    <ion-item *ngIf="ilanSuresiBitmis" color="danger">
+      <ion-icon name="calendar" item-left></ion-icon>
+      <h2 style="color:#fff">Bu ilanın Süresi Bitmiştir</h2>
+    </ion-item>
+
+    <ion-item color="primary">
       <ion-avatar item-left>
         <img [src]="ilan.random">
       </ion-avatar>
-      <h2>{{ilan.ilaniVerenKullanici.displayName}}</h2>
+      <h2 style="color:#fff">{{ilan.ilaniVerenKullanici.displayName}}</h2>
       <p>{{ilan.ilaniVerenKullanici.email}}</p>
     </ion-item>
 
     <ion-item>
-      <ion-icon name="football" item-left large></ion-icon>
-      <h2>Museum of Football</h2>
-      <p>11 N. Way St, Madison, WI 53703</p>
+      <ion-icon name="flag" item-left large></ion-icon>
+      <h2>Nereden</h2>
+      <p>{{ilan.baslangic.adres}}</p>
     </ion-item>
 
     <ion-item>
-      <ion-icon name="wine" item-left large></ion-icon>
-      <h2>Institute of Fine Cocktails</h2>
-      <p>14 S. Hop Avenue, Madison, WI 53703</p>
+      <ion-icon name="pin" item-left large></ion-icon>
+      <h2>Nereye</h2>
+      <p>{{ilan.bitis.adres}}</p>
     </ion-item>
 
-    <ion-item>
-      <span item-left>18 min</span>
-      <span item-left>(2.6 mi)</span>
-      <button ion-button icon-left clear item-right>
-      <ion-icon name="navigate"></ion-icon>
-      Start
-    </button>
+    <ion-item *ngIf="ilan.ilaninSonaErmeTarihi">
+      <span item-left>Bitiş Tarihi</span>
+      <span item-left>{{ilan.ilaninSonaErmeTarihi}}</span>
     </ion-item>
 
   </ion-card>

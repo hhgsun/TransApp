@@ -21,19 +21,25 @@ import { BaseService } from '../services/service'
 export class IlandetayPage {
     public ilan = null; //secilenIlan
     public aktifKullaniciId = null;
+    public ilanSuresiBitmis = false;
     public map: GoogleMap;
-
+    
     constructor(public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public platform: Platform, public baseService: BaseService) {
         this.ilan = this.navParams.get("item");
         this.angularFire.auth.subscribe(aktifKullanici => {
             this.aktifKullaniciId = aktifKullanici.uid;
         })
+
+        var datenow = new Date().toISOString(); //2017-12-31 formatında olmalı
+        if(this.ilan.ilaninSonaErmeTarihi < datenow) this.ilanSuresiBitmis = true; else this.ilanSuresiBitmis = false;
+
         this.platform.ready().then(() => {
             this.installMap();
         })
     }
 
     teklifVerAlert() {
+        this.map.setVisible(false);
         let prompt = this.alertCtrl.create({
             title: 'Fiyat Teklifi Ver',
             // message: "",
@@ -65,6 +71,9 @@ export class IlandetayPage {
                 }
             ]
         });
+        prompt.onDidDismiss(()=>{
+            this.map.setVisible(true);
+        })
         prompt.present();
     }
 
@@ -123,9 +132,7 @@ export class IlandetayPage {
         //this.map.moveCamera({target: latLngBounds....}); veya animateCamera({..})
         this.map.animateCamera({
             target: latLngBounds,
-            tilt: 30,
-            duration: 1000,
-            bearing: 15,
+            duration: 1000
         });
     }
 
