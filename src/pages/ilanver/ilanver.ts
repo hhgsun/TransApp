@@ -70,9 +70,7 @@ export class IlanverPage {
 
   showAddressModal(neresiIcin: string) {
     let modal = this.modalCtrl.create(AutocompletePage);
-    this.map.setVisible(false); // burda haritayı gizliyoruz çünkü modal açılınca modalda yapılan işlem haritayada uygulanıyor.
     modal.onDidDismiss((locationData: any) => {
-      this.map.setVisible(true); // modal kapanınca harita yeniden görünür oluyor
       if (locationData) {
         if (neresiIcin == "nereden") {
           this.ilanData.baslangic = locationData;
@@ -114,7 +112,7 @@ export class IlanverPage {
     let element: HTMLElement = document.getElementById('map');
     this.map = new GoogleMap(element, {
       center: { lat: 41.008238, lng: 28.978359 },
-      zoom: 10
+      //zoom: 10
     });
     // listen to MAP_READY event
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
@@ -162,11 +160,14 @@ export class IlanverPage {
     // bounds: sınırlar, kamera genişliği
     var latLngBounds = new GoogleMapsLatLngBounds([neredenLatLng, nereyeLatLng]);
 
-    //this.map.moveCamera({target: latLngBounds....});
-    this.map.animateCamera({
+    this.map.moveCamera({
       target: latLngBounds,
-      duration: 1000
     });
+    this.map.animateCamera({
+      duration: 1000
+    })
+    this.map.setClickable(false); // tıklamayı engeller
+    this.map.setZoom(25);
   }
 
 }

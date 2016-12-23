@@ -23,7 +23,7 @@ export class IlandetayPage {
     public aktifKullaniciId = null;
     public ilanSuresiBitmis = false;
     public map: GoogleMap;
-    
+
     constructor(public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public platform: Platform, public baseService: BaseService) {
         this.ilan = this.navParams.get("item");
         this.angularFire.auth.subscribe(aktifKullanici => {
@@ -31,7 +31,7 @@ export class IlandetayPage {
         })
 
         var datenow = new Date().toISOString(); //2017-12-31 formatında olmalı
-        if(this.ilan.ilaninSonaErmeTarihi < datenow) this.ilanSuresiBitmis = true; else this.ilanSuresiBitmis = false;
+        if (this.ilan.ilaninSonaErmeTarihi < datenow) this.ilanSuresiBitmis = true; else this.ilanSuresiBitmis = false;
 
         this.platform.ready().then(() => {
             this.installMap();
@@ -39,10 +39,10 @@ export class IlandetayPage {
     }
 
     teklifVerAlert() {
-        this.map.setVisible(false);
+        //this.map.setVisible(false);
         let prompt = this.alertCtrl.create({
             title: 'Fiyat Teklifi Ver',
-            // message: "",
+            // message: "5000",
             inputs: [
                 {
                     name: 'fiyat',
@@ -71,10 +71,14 @@ export class IlandetayPage {
                 }
             ]
         });
-        prompt.onDidDismiss(()=>{
-            this.map.setVisible(true);
+        prompt.onDidDismiss(() => {
+            //this.map.setVisible(true);
         })
         prompt.present();
+    }
+
+    ilanVerenDetay() {
+        this.baseService.presentAlert("İlan Verenin Profili");
     }
 
     installMap() {
@@ -123,17 +127,20 @@ export class IlandetayPage {
             .then((marker: GoogleMapsMarker) => {
                 marker.setIcon("../assets/img/flag.png");
                 marker.showInfoWindow();
+                marker.setFlat(true);
             });
         // -------
 
         // bounds: sınırlar, kamera genişliği
         var latLngBounds = new GoogleMapsLatLngBounds([neredenLatLng, nereyeLatLng]);
-
-        //this.map.moveCamera({target: latLngBounds....}); veya animateCamera({..})
-        this.map.animateCamera({
+        this.map.moveCamera({
             target: latLngBounds,
-            duration: 1000
         });
+        this.map.animateCamera({
+            duration: 1000
+        })
+        this.map.setClickable(false); // tıklamayı engeller
+        this.map.setZoom(25);
     }
 
 }
