@@ -1,14 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, Platform } from 'ionic-angular';
-
-import {
-  GoogleMap,
-  GoogleMapsEvent,
-  GoogleMapsLatLng,
-  GoogleMapsMarkerOptions,
-  GoogleMapsMarker,
-  GoogleMapsLatLngBounds
-} from 'ionic-native';
+import { NavController, ModalController } from 'ionic-angular';
 
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
@@ -25,25 +16,16 @@ export class IlanverPage {
   ilanlar: FirebaseListObservable<any>;
   public ilanData: any = {};
   public aktifAsamaIndex = 1; //ilan verme 2 aşamadan oluyor 1.aşamada nereden nereye 2. aşama diğer detaylar belki 3,4..aşamalar olur
-  public map: GoogleMap;
-
+  public staticMapSrc;
   public minDate = new Date().toISOString(); //1996-12-19 gibi formatda
   public maxDate = new Date().getFullYear() + 1; //2018 gibi formatda
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public angularFire: AngularFire, public navParams: NavParams, public baseService: BaseService, public platform: Platform) {
-    var gelenAsama = this.navParams.get("asama");
-    if (gelenAsama) {
-      this.aktifAsamaIndex = gelenAsama;
-      this.ilanData = this.navParams.get("ilanData"); //sıfır veri olan ilanData ya gelen ilanDatayı eşitliyoruz
-      this.baseService.presentToast(this.aktifAsamaIndex + ".Aşama");
-    }
-    this.platform.ready().then(() => {
-      this.initMap();
-    })
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public angularFire: AngularFire, public baseService: BaseService) {
   }
 
   ionViewDidLoad() {
     this.ilanlar = this.angularFire.database.list("ilanlar");
+    this.staticMapSrc = this.baseService.staticMapAddMarkers(this.ilanData);
   }
 
   gonder() {
@@ -78,9 +60,7 @@ export class IlanverPage {
           this.ilanData.bitis = locationData;
         }
       }
-      if (this.ilanData.baslangic && this.ilanData.bitis) {
-        this.addMapCustom();
-      }
+      this.addStaticMapMarker();
     });
     modal.present();
   }
@@ -89,24 +69,26 @@ export class IlanverPage {
     //this.ilanData.baslangic = true;
     //this.ilanData.bitis = true;
     if (this.ilanData.baslangic && this.ilanData.bitis) {
-      this.navCtrl.push(IlanverPage, {
-        asama: 2,
-        ilanData: this.ilanData
-        //sayfa nav.push edilince ilanData sıfırlanıyor, bizde parametre olarak yolluyoruz sonra ilanData ya eşitlemek için 
-      });
+      this.aktifAsamaIndex = 2;
     } else {
       this.baseService.presentAlert("lütfen Başlangıç ve Bitiş noktası seçiniz");
     }
   }
 
   geriAsamayaGit() {
-    this.navCtrl.pop();
+    this.aktifAsamaIndex = 1;
   }
 
   ilanIptal() {
-    this.navCtrl.setRoot(AnasayfaPage);
+    this.navCtrl.pop();
   }
 
+  addStaticMapMarker(markerType?: string) {
+    this.staticMapSrc = this.baseService.staticMapAddMarkers(this.ilanData);
+    console.log(this.staticMapSrc);
+  }
+
+  /*
   // Haritayı yalnızca görünüm başlatıldıktan sonra yükle ngAfterViewInit()
   initMap() {
     let element: HTMLElement = document.getElementById('map');
@@ -118,7 +100,9 @@ export class IlanverPage {
     this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
       this.baseService.presentToast("MAPS HAZIR", 3000);
     });
+
     this.map.clear();
+    this.map.setClickable(false);
   }
 
   addMapCustom() {
@@ -167,7 +151,6 @@ export class IlanverPage {
       duration: 1000
     })
     this.map.setClickable(false); // tıklamayı engeller
-    this.map.setZoom(25);
   }
-
+  */
 }

@@ -10,8 +10,45 @@ declare var window: any;
 
 @Injectable()
 export class BaseService {
+    private _staticMapSrc = "http://maps.googleapis.com/maps/api/staticmap?"
+    + "autoscale=2&size=400x200&maptype=roadmap&"
+    + "key=AIzaSyCxMFmAa2WRZA5SfNa9W63HZqQyTwoPYG8"
+    + "&format=png&visual_refresh=true";
+    private _staticMapSrcBaslangicIcon = "";
+    private _staticMapSrcBitisIcon = "";
 
     constructor(public http: Http, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+    }
+
+    staticMapShowMarkers(baslangic: any, bitis: any) {
+        var _detayStaticMap = this._staticMapSrc
+            + "&markers=icon:" + this._staticMapSrcBaslangicIcon + "%7Cshadow:true%7Csize:mid%7Ccolor:0x387ef5"
+            + "%7Clabel:1%7C" + baslangic.location.lat + "," + baslangic.location.lng
+            + "&markers=icon:" + this._staticMapSrcBitisIcon + "%7Cshadow:true%7Csize:mid%7Ccolor:0x387ef5"
+            + "%7Clabel:2%7C" + bitis.location.lat + "," + bitis.location.lng
+            + "&path=" + baslangic.location.lat + "," + baslangic.location.lng + "|" + bitis.location.lat + "," + bitis.location.lng;
+        return _detayStaticMap;
+    }
+
+    staticMapAddMarkers(ilanData: any) {
+        var _ekleStaticMap = this._staticMapSrc;
+        if (ilanData.baslangic && ilanData.bitis) {
+            _ekleStaticMap = _ekleStaticMap
+                + "&markers=icon:" + this._staticMapSrcBaslangicIcon + "%7Cshadow:true%7Csize:mid%7Ccolor:0xff0000"
+                + "%7Clabel:1%7C" + ilanData.baslangic.location.lat + "," + ilanData.baslangic.location.lng
+                + "&markers=icon:" + this._staticMapSrcBitisIcon + "%7Cshadow:true%7Csize:mid%7Ccolor:0xff0000"
+                + "%7Clabel:2%7C" + ilanData.bitis.location.lat + "," + ilanData.bitis.location.lng
+                + "&path=" + ilanData.baslangic.location.lat + "," + ilanData.baslangic.location.lng + "|" + ilanData.bitis.location.lat + "," + ilanData.bitis.location.lng;
+        } else if (ilanData.baslangic) {
+            _ekleStaticMap = _ekleStaticMap
+                + "&markers=icon:" + this._staticMapSrcBaslangicIcon + "%7Cshadow:true%7Csize:mid%7Ccolor:0xff0000"
+                + "%7Clabel:1%7C" + ilanData.baslangic.location.lat + "," + ilanData.baslangic.location.lng;
+        } else if (ilanData.bitis) {
+            _ekleStaticMap = _ekleStaticMap
+                + "&markers=icon:" + this._staticMapSrcBitisIcon + "%7Cshadow:true%7Csize:mid%7Ccolor:0xff0000"
+                + "%7Clabel:2%7C" + ilanData.bitis.location.lat + "," + ilanData.bitis.location.lng;
+        }
+        return _ekleStaticMap;
     }
 
     presentToast(message: string, duration?: number, showCloseButton?: boolean) {
@@ -24,7 +61,7 @@ export class BaseService {
         toast.present();
     }
 
-    presentAlert(title:string, subTitle?:string) {
+    presentAlert(title: string, subTitle?: string) {
         let alert = this.alertCtrl.create({
             title: title,
             subTitle: subTitle,

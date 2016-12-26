@@ -1,16 +1,8 @@
 import { Component } from '@angular/core';
-import { NavParams, AlertController, Platform } from 'ionic-angular';
+import { NavParams, AlertController } from 'ionic-angular';
+import { LaunchNavigator } from 'ionic-native';
 
 import { AngularFire } from 'angularfire2';
-
-import {
-    GoogleMap,
-    GoogleMapsEvent,
-    GoogleMapsLatLng,
-    GoogleMapsMarkerOptions,
-    GoogleMapsMarker,
-    GoogleMapsLatLngBounds
-} from 'ionic-native';
 
 import { BaseService } from '../services/service'
 
@@ -22,20 +14,16 @@ export class IlandetayPage {
     public ilan = null; //secilenIlan
     public aktifKullaniciId = null;
     public ilanSuresiBitmis = false;
-    public map: GoogleMap;
+    public staticMapSrc;
 
-    constructor(public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public platform: Platform, public baseService: BaseService) {
+    constructor(public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public baseService: BaseService) {
         this.ilan = this.navParams.get("item");
         this.angularFire.auth.subscribe(aktifKullanici => {
             this.aktifKullaniciId = aktifKullanici.uid;
         })
-
         var datenow = new Date().toISOString(); //2017-12-31 formatında olmalı
         if (this.ilan.ilaninSonaErmeTarihi < datenow) this.ilanSuresiBitmis = true; else this.ilanSuresiBitmis = false;
-
-        this.platform.ready().then(() => {
-            this.installMap();
-        })
+        this.staticMapSrc = this.baseService.staticMapShowMarkers(this.ilan.baslangic, this.ilan.bitis);
     }
 
     teklifVerAlert() {
@@ -81,6 +69,20 @@ export class IlandetayPage {
         this.baseService.presentAlert("İlan Verenin Profili");
     }
 
+    mapDetay() {
+        console.log("Map Aç");
+
+        LaunchNavigator.navigate(
+            [this.ilan.baslangic.location.lat, this.ilan.baslangic.location.lng],
+            [this.ilan.bitis.location.lat, this.ilan.bitis.location.lng]
+        ).then(
+            success => console.log('Launched navigator'),
+            error => console.log('Error launching navigator', error)
+            );
+    }
+
+
+    /*
     installMap() {
         let element: HTMLElement = document.getElementById('map');
         this.map = new GoogleMap(element);
@@ -142,5 +144,6 @@ export class IlandetayPage {
         this.map.setClickable(false); // tıklamayı engeller
         this.map.setZoom(25);
     }
+    */
 
 }

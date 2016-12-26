@@ -14,10 +14,9 @@
 
   <!-- 1. Aşama Başlangıç ve Bitiş Yerleri alınır -->
   <div *ngIf="aktifAsamaIndex == 1">
-    <div class="map">
-      <div #map id="map"></div>
-    </div>
-    <div class="kordinat-secme">
+      <!--div #map id="map"></div-->
+      <ion-img class="staticMap" [src]="staticMapSrc" alt="Yükleniyor..."></ion-img>
+
       <ion-list>
         <ion-item (click)="showAddressModal('nereden')">
           <ion-icon name="flag" item-left></ion-icon>
@@ -44,7 +43,6 @@
               </button>
       </div>
     </div>
-  </div>
   <!--// 1-->
 
 <!-- 2. Aşama ilanın Detay Bilgileri Alınır -->

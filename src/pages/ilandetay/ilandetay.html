@@ -12,7 +12,8 @@
     </button>
   </ion-fab>
 
-  <div #map id="map"></div>
+  <!--div #map id="map"></div-->
+  <ion-img (click)="mapDetay()" class="staticMap" [src]="staticMapSrc" alt="Yükleniyor..."></ion-img>
 
   <ion-card>
     <ion-item *ngIf="ilanSuresiBitmis" color="danger">
