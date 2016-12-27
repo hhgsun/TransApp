@@ -26,7 +26,7 @@ import { AngularFireModule } from 'angularfire2';
 
 // Initialize Firebase
 export const firebaseConfig = {
-  apiKey: "AIzaSyCJhUN4R_vAnsW5mGq3vSfWz76dt53jFgc",
+  apiKey: "AIzaSyAaUZfeKE3Swi8bOfHjrYWDFomx0rzhLf4",
   authDomain: "transapp-40bd7.firebaseapp.com",
   databaseURL: "https://transapp-40bd7.firebaseio.com",
   storageBucket: "transapp-40bd7.appspot.com",

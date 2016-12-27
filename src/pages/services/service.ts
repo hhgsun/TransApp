@@ -12,7 +12,7 @@ declare var window: any;
 export class BaseService {
     private _staticMapSrc = "http://maps.googleapis.com/maps/api/staticmap?"
     + "autoscale=2&size=500x250&maptype=roadmap&"
-    + "key=AIzaSyCxMFmAa2WRZA5SfNa9W63HZqQyTwoPYG8"
+    + "key=AIzaSyDUrR9i2CKoJ4Ln-qmBMCPyd6NnCx_lTzU"
     + "&format=png&visual_refresh=true";
     private _staticMapSrcBaslangicIcon = "";
     private _staticMapSrcBitisIcon = "";

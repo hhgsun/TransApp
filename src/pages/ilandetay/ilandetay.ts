@@ -109,7 +109,8 @@ export class IlandetayPage {
                     }
                 }
             ]
-        })
+        });
+        _alert.present();
     }
 
     /*
