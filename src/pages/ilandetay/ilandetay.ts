@@ -70,14 +70,11 @@ export class IlandetayPage {
     }
 
     mapDetay() {
-        console.log("Map Aç");
-
-        LaunchNavigator.navigate(
-            [this.ilan.baslangic.location.lat, this.ilan.baslangic.location.lng],
-            [this.ilan.bitis.location.lat, this.ilan.bitis.location.lng]
-        ).then(
-            success => console.log('Launched navigator'),
-            error => console.log('Error launching navigator', error)
+        LaunchNavigator.navigate([this.ilan.bitis.location.lat, this.ilan.bitis.location.lng], {
+            start: [this.ilan.baslangic.location.lat, this.ilan.baslangic.location.lng]
+        }).then(
+            success => console.log('Cihazdaki Uygulama Çalıştı'),
+            error => console.log('Cihazınızda uygun uygulama bulunamadı', error)
             );
     }
 

@@ -11,7 +11,7 @@ declare var window: any;
 @Injectable()
 export class BaseService {
     private _staticMapSrc = "http://maps.googleapis.com/maps/api/staticmap?"
-    + "autoscale=2&size=400x200&maptype=roadmap&"
+    + "autoscale=2&size=500x250&maptype=roadmap&"
     + "key=AIzaSyCxMFmAa2WRZA5SfNa9W63HZqQyTwoPYG8"
     + "&format=png&visual_refresh=true";
     private _staticMapSrcBaslangicIcon = "";
