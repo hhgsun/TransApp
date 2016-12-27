@@ -8,60 +8,98 @@
 </ion-header>
 
 <ion-content padding *ngIf="kayitOlPage == null && sifreYenilePage == null">
-    <form (ngSubmit)="login()">
-        <ion-item>
-            <ion-label>Email</ion-label>
-            <ion-input type="email" [(ngModel)]="loginData.email" name="email"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Şifre</ion-label>
-            <ion-input type="password" [(ngModel)]="loginData.password" name="password"></ion-input>
-        </ion-item>
-        <button ion-button type="submit" block>Giriş Yap</button>
-    </form>
-
-    <br>
-    <a (click)="digerSayfa('kayitOlPage')" block>Kayıt Ol</a>
-    <a (click)="digerSayfa('sifreYenilePage')" block>Şifre Yenile</a>
-
+    <ion-row>
+        <ion-col>
+            <div class="girisheader">
+                <img [@flyInBottomSlow]="logoState" class="logo" src="assets/img/logo.png">
+                <h2>TransApp</h2>
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+                <form (ngSubmit)="login()">
+                    <ion-list inset [@bounceInBottom]="formState">
+                        <ion-item>
+                            <ion-label floating>Email</ion-label>
+                            <ion-input type="email" [(ngModel)]="loginData.email" name="email"></ion-input>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label floating>Şifre</ion-label>
+                            <ion-input type="password" [(ngModel)]="loginData.password" name="password"></ion-input>
+                        </ion-item>
+                        <ion-item style="display:none;"></ion-item>
+                    </ion-list>
+                    <div padding style="padding-right:0;">
+                        <button [@fadeIn]="loginState" ion-button icon-left block type="submit">Giriş Yap</button>
+                    </div>
+                </form>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+                <div padding style="padding-right:0;">
+                    <button [@fadeIn]="loginState" ion-button icon-left block clear (click)="digerSayfa('sifreYenilePage')">Şifremi Unuttum</button>
+                </div>
+                <br>
+                <div padding style="padding-right:0;">
+                    <button [@fadeIn]="loginState" ion-button icon-left block outline (click)="digerSayfa('kayitOlPage')">Kayıt Ol</button>
+                </div>
+        </ion-col>
+    </ion-row>
 </ion-content>
 
 <ion-content padding *ngIf="kayitOlPage != null && sifreYenilePage == null">
-    <h2>Kayıt Ol</h2>
-
     <form (ngSubmit)="register()">
-        <ion-item>
-            <ion-label>Email</ion-label>
-            <ion-input type="email" [(ngModel)]="registerData.email" name="email"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Ad</ion-label>
-            <ion-input type="text" [(ngModel)]="registerData.ad" name="ad"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Soyad</ion-label>
-            <ion-input type="text" [(ngModel)]="registerData.soyad" name="soyad"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Şifre</ion-label>
-            <ion-input type="password" [(ngModel)]="registerData.password" name="password"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Şifre Tekrarı</ion-label>
-            <ion-input type="password" [(ngModel)]="registerData.passwordRep" name="passwordRep"></ion-input>
-        </ion-item>
-        <button ion-button type="submit" block>Kayıt Ol</button>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label floating>Email</ion-label>
+                    <ion-input type="email" [(ngModel)]="registerData.email" name="email"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Ad</ion-label>
+                    <ion-input type="text" [(ngModel)]="registerData.ad" name="ad"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Soyad</ion-label>
+                    <ion-input type="text" [(ngModel)]="registerData.soyad" name="soyad"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Şifre</ion-label>
+                    <ion-input type="password" [(ngModel)]="registerData.password" name="password"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label floating>Şifre Tekrarı</ion-label>
+                    <ion-input type="password" [(ngModel)]="registerData.passwordRep" name="passwordRep"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <div padding style="padding-right:0;">
+                    <button ion-button type="submit" block>Kayıt Ol</button>
+                </div>
+            </ion-col>
+        </ion-row>
     </form>
 </ion-content>
 
 <ion-content padding *ngIf="kayitOlPage == null && sifreYenilePage != null">
-    <h2>Şifre Değiştir</h2>
-
+    <h2>Şifre Yenileme</h2>
     <form (ngSubmit)="passReset()">
-        <ion-item>
-            <ion-label>Email</ion-label>
-            <ion-input type="email" [(ngModel)]="passResetData.email" name="email"></ion-input>
-        </ion-item>
-        <button ion-button type="submit" block>Gönder</button>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-input type="email" [(ngModel)]="passResetData.email" name="email"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <button ion-button type="submit" block>Gönder</button>
+            </ion-col>
+        </ion-row>
     </form>
 </ion-content>

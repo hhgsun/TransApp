@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, trigger, state, style, transition, animate, keyframes } from '@angular/core';
 
 import { NavController, MenuController, NavParams } from 'ionic-angular';
 
@@ -6,7 +6,52 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 
 @Component({
     selector: 'page-login',
-    templateUrl: 'login.html'
+    templateUrl: 'login.html',
+    animations: [
+        //For the logo
+        trigger('flyInBottomSlow', [
+            state('in', style({
+                transform: 'translate3d(0,0,0)'
+            })),
+            transition('void => *', [
+                style({ transform: 'translate3d(0,2000px,0' }),
+                animate('2000ms ease-in-out')
+            ])
+        ]),
+        //For the background detail
+        trigger('flyInBottomFast', [
+            state('in', style({
+                transform: 'translate3d(0,0,0)'
+            })),
+            transition('void => *', [
+                style({ transform: 'translate3d(0,2000px,0)' }),
+                animate('1000ms ease-in-out')
+            ])
+        ]),
+        //For the login form
+        trigger('bounceInBottom', [
+            state('in', style({
+                transform: 'translate3d(0,0,0)'
+            })),
+            transition('void => *', [
+                animate('2000ms 200ms ease-in', keyframes([
+                    style({ transform: 'translate3d(0,2000px,0)', offset: 0 }),
+                    style({ transform: 'translate3d(0,-20px,0)', offset: 0.9 }),
+                    style({ transform: 'translate3d(0,0,0)', offset: 1 })
+                ]))
+            ])
+        ]),
+        //For login button
+        trigger('fadeIn', [
+            state('in', style({
+                opacity: 1
+            })),
+            transition('void => *', [
+                style({ opacity: 0 }),
+                animate('1000ms 2000ms ease-in')
+            ])
+        ])
+    ]
 })
 export class LoginPage {
     loginData: any = {};
@@ -33,26 +78,30 @@ export class LoginPage {
     }
 
     login() {
-        var credentials: any = { email: this.loginData.email, password: this.loginData.password }
-        this.angularFire.auth.login(credentials, { provider: AuthProviders.Password, method: AuthMethods.Password }).then((data: any) => {
-            console.log(data.uid);
-            //this.navCtrl.setRoot(IlanlarPage);
-        }).catch((err) => {
-            alert("Hata: " + err.message);
-            console.log("Error message: " + err.message);
-        });
+        if (this.loginData.email == "", null && this.loginData.password == "", null) {
+            alert("Lütfen Bilgileri Kontrol Ediniz.")
+        } else {
+            var credentials: any = { email: this.loginData.email, password: this.loginData.password }
+            this.angularFire.auth.login(credentials, { provider: AuthProviders.Password, method: AuthMethods.Password }).then((data: any) => {
+                console.log(data.uid);
+                //this.navCtrl.setRoot(IlanlarPage);
+            }).catch((err) => {
+                alert("Hata: " + err.message);
+                console.log("Error message: " + err.message);
+            });
+        }
     }
 
     register() {
         if (this.registerData.passwordRep == this.registerData.password) {
-            var credentials: any = { email: this.registerData.email, password: this.registerData.password, displayName: this.registerData.displayName }
+            console.log(this.registerData.displayName);
+            var credentials: any = { email: this.registerData.email, password: this.registerData.password }
             this.angularFire.auth.createUser(credentials).then((data: any) => {
                 this.angularFire.database.object("users/" + data.uid).set({
                     userId: data.uid,
                     email: this.registerData.email,
                     ad: this.registerData.ad,
-                    soyad: this.registerData.soyad,
-                    tcNo: this.registerData.tcNo
+                    soyad: this.registerData.soyad
                 }).then((cal: any) => {
                     console.log(cal);
                 })

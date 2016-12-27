@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, NavParams } from 'ionic-angular';
 
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
@@ -19,8 +19,13 @@ export class IlanverPage {
   public staticMapSrc;
   public minDate = new Date().toISOString(); //1996-12-19 gibi formatda
   public maxDate = new Date().getFullYear() + 1; //2018 gibi formatda
-
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public angularFire: AngularFire, public baseService: BaseService) {
+  public ilanGuncelle = false;
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public angularFire: AngularFire, public baseService: BaseService, public navParams: NavParams) {
+    var gelenData = this.navParams.get("item");
+    if (gelenData) {
+      this.ilanData = gelenData;
+      this.ilanGuncelle = true;
+    }
   }
 
   ionViewDidLoad() {
@@ -40,12 +45,45 @@ export class IlanverPage {
       this.baseService.presentAlert("Lütfen Bilgileri Eksiksiz Giriniz");
     } else {
       this.ilanData.ilaniVerenKullaniciId = this.angularFire.auth.getAuth().uid;
+      this.ilanData.eklemeTarihi = new Date().toISOString();
       this.ilanlar.push(this.ilanData).then((data: any) => {
         //console.log(data);
         this.baseService.presentToast("Kaydınız Başarıyla Alınmıştır...");
         this.navCtrl.setRoot(AnasayfaPage);
       }).catch((err) => {
         console.log(err);
+      });
+    }
+  }
+
+  guncelle() {
+    if (
+      //hem null hemde "" boş olursa uyarı
+      this.ilanData.aciklama == null || this.ilanData.aciklama == "" ||
+      this.ilanData.ilaninSonaErmeTarihi == null || this.ilanData.ilaninSonaErmeTarihi == "" ||
+      this.ilanData.yukCinsi == null || this.ilanData.yukCinsi == "" ||
+      this.ilanData.tonaj == null || this.ilanData.tonaj == "" ||
+      this.ilanData.tonajTuru == null || this.ilanData.tonajTuru == ""
+    ) {
+      this.baseService.presentAlert("Lütfen Bilgileri Eksiksiz Giriniz");
+    } else {
+      var ilan = {
+        aciklama: this.ilanData.aciklama,
+        ilaninSonaErmeTarihi: this.ilanData.ilaninSonaErmeTarihi,
+        baslangic: this.ilanData.baslangic,
+        bitis: this.ilanData.bitis,
+        tonaj: this.ilanData.tonaj,
+        tonajTuru: this.ilanData.tonajTuru,
+        yukCinsi: this.ilanData.yukCinsi,
+        guncellemeTarihi: new Date().toISOString()
+      }
+      var guncellenecekIlan = this.angularFire.database.object("ilanlar/" + this.ilanData.$key);
+      guncellenecekIlan.update(ilan).then(data => {
+        this.baseService.presentToast("Kaydınız Başarıyla Güncellenmiştir...");
+        this.navCtrl.setRoot(AnasayfaPage);
+      }).catch(err => {
+        console.log(err);
+        alert("Beklenmedik Hata: " + err);
       });
     }
   }

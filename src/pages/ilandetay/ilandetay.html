@@ -2,16 +2,18 @@
   <ion-navbar>
     <button ion-button menuToggle></button>
     <ion-title>{{ilan.aciklama}}</ion-title>
+    <ion-buttons *ngIf="aktifKullaniciId == ilan.ilaniVerenKullaniciId" end>
+      <button ion-button icon-only (click)="duzenle()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="sil()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content *ngIf="ilan">
-  <ion-fab bottom left>
-    <button ion-fab (click)="teklifVerAlert()">
-      <ion-icon name="pricetag"></ion-icon>
-    </button>
-  </ion-fab>
-
   <!--div #map id="map"></div-->
   <ion-img (click)="mapDetay()" class="staticMap" [src]="staticMapSrc" alt="Yükleniyor..."></ion-img>
 
@@ -25,7 +27,7 @@
       <ion-avatar item-left>
         <img [src]="ilan.random">
       </ion-avatar>
-      <h2 style="color:#fff">{{ilan.ilaniVerenKullanici.displayName}}</h2>
+      <h2 style="color:#fff">{{ilan.ilaniVerenKullanici.ad}} {{ilan.ilaniVerenKullanici.soyad}}</h2>
       <p>{{ilan.ilaniVerenKullanici.email}}</p>
     </ion-item>
 
@@ -41,6 +43,18 @@
       <p>{{ilan.bitis.adres}}</p>
     </ion-item>
 
+    <ion-item>
+      <ion-icon name="logo-buffer" item-left large></ion-icon>
+      <h2>Yük</h2>
+      <p>{{ilan.yukCinsi}} - {{ilan.tonaj}} {{ilan.tonajTuru}}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="quote" item-left large></ion-icon>
+      <h2>Açıklama</h2>
+      <p>{{ilan.aciklama}}</p>
+    </ion-item>
+    
     <ion-item *ngIf="ilan.ilaninSonaErmeTarihi">
       <span item-left>Bitiş Tarihi</span>
       <span item-left>{{ilan.ilaninSonaErmeTarihi}}</span>
@@ -78,6 +92,10 @@
     </ion-chip>
     <br><br>
 
+    <button (click)="teklifVerAlert()" icon-left ion-button round block>
+      <ion-icon name="pricetag"></ion-icon>
+      Teklif Ver
+    </button>
   </div>
 
 </ion-content>

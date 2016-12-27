@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavParams, AlertController } from 'ionic-angular';
+import { NavParams, AlertController, NavController } from 'ionic-angular';
 import { LaunchNavigator } from 'ionic-native';
 
 import { AngularFire } from 'angularfire2';
 
 import { BaseService } from '../services/service'
+import { IlanverPage } from '../ilanver/ilanver'
 
 @Component({
     selector: 'page-ilandetay',
@@ -16,7 +17,7 @@ export class IlandetayPage {
     public ilanSuresiBitmis = false;
     public staticMapSrc;
 
-    constructor(public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public baseService: BaseService) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public baseService: BaseService) {
         this.ilan = this.navParams.get("item");
         this.angularFire.auth.subscribe(aktifKullanici => {
             this.aktifKullaniciId = aktifKullanici.uid;
@@ -78,6 +79,38 @@ export class IlandetayPage {
             );
     }
 
+    duzenle() {
+        this.navCtrl.push(IlanverPage, {
+            item: this.ilan
+        })
+    }
+
+    sil() {
+        var _alert = this.alertCtrl.create({
+            title: 'İlanı Silmek İstediğinize Eminmisiniz ?',
+            message: "Bu ilana ait tüm veriler silinecektir",
+            buttons: [
+                {
+                    text: 'Vazgeç',
+                    handler: data => {
+                        console.log('Silmekten vazçildi');
+                    }
+                },
+                {
+                    text: 'Sil',
+                    handler: data => {
+                        var silinecekIlan = this.angularFire.database.object("ilanlar/" + this.ilan.$key);
+                        silinecekIlan.remove().then(data => {
+                            this.navCtrl.pop();
+                            this.baseService.presentToast("İlanınız Başarıyla Silinmiştir...");
+                        }).catch(err => {
+                            alert("Silme İşleminde Bir Hata Oluştu: " + err);
+                        })
+                    }
+                }
+            ]
+        })
+    }
 
     /*
     installMap() {
