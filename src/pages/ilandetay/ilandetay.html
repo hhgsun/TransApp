@@ -65,6 +65,13 @@
 
   <div padding class="offers" style="padding-bottom:70px;">
 
+    <ion-chip *ngFor="let teklif of teklifler" >
+      <ion-avatar>
+        <img [src]="ilan.random">
+      </ion-avatar>
+      <ion-label>{{ilan.fiyat}} - {{teklif.teklifVerenKullaniciId}}</ion-label>
+    </ion-chip>
+
     <br><br>
     <ion-chip>
       <ion-avatar>
@@ -72,24 +79,7 @@
       </ion-avatar>
       <ion-label>{{ilan.ilaniVerenKullanici.ad}} {{ilan.ilaniVerenKullanici.soyad}}</ion-label>
     </ion-chip>
-    <ion-chip>
-      <ion-avatar>
-        <img [src]="ilan.random+1">
-      </ion-avatar>
-      <ion-label>{{ilan.ilaniVerenKullanici.ad}} {{ilan.ilaniVerenKullanici.soyad}}</ion-label>
-    </ion-chip>
-    <ion-chip>
-      <ion-avatar>
-        <img [src]="ilan.random+2">
-      </ion-avatar>
-      <ion-label>{{ilan.ilaniVerenKullanici.ad}} {{ilan.ilaniVerenKullanici.soyad}}</ion-label>
-    </ion-chip>
-    <ion-chip>
-      <ion-avatar>
-        <img [src]="ilan.random+3">
-      </ion-avatar>
-      <ion-label>{{ilan.ilaniVerenKullanici.ad}} {{ilan.ilaniVerenKullanici.soyad}}</ion-label>
-    </ion-chip>
+
     <br><br>
 
     <button (click)="teklifVerAlert()" icon-left ion-button round block>
