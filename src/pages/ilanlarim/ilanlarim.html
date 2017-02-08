@@ -13,10 +13,14 @@
 
     <ion-list>
         <ion-item *ngFor="let ilan of ilanlarim" (click)="ilanDetay(ilan)">
-            <ion-avatar item-left>
-                <img [src]="ilan.random">
-            </ion-avatar>
-            <h2>{{ilan.baslik}}</h2>
+            <h2 *ngIf="ilan.baslangic && ilan.bitis">
+                <span *ngIf="ilan.baslangic.bolgeler[ilan.baslangic.bolgeler.length - 2]">{{ilan.baslangic.bolgeler[ilan.baslangic.bolgeler.length - 2]}}</span>
+                <span *ngIf="ilan.baslangic.bolgeler[ilan.baslangic.bolgeler.length - 2] == null">{{ilan.baslangic.bolgeler[ilan.baslangic.bolgeler.length - 1]}}</span>
+                <ion-icon name="arrow-forward" small></ion-icon>
+                <span *ngIf="ilan.bitis.bolgeler[ilan.bitis.bolgeler.length - 2]">{{ilan.bitis.bolgeler[ilan.bitis.bolgeler.length - 2]}}</span>
+                <span *ngIf="ilan.bitis.bolgeler[ilan.bitis.bolgeler.length - 2] == null">{{ilan.bitis.bolgeler[ilan.bitis.bolgeler.length - 1]}}</span>
+            </h2>
+            <p>{{ilan.baslik}}</p>
             <p>{{ilan.aciklama}}</p>
         </ion-item>
     </ion-list>

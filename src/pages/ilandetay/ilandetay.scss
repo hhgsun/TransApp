@@ -1,21 +1,4 @@
 page-ilandetay {
-    /*
-        .map {
-            position: absolute;
-            z-index: 0;
-            width: 100%;
-            height: 50%;
-            border-bottom: 2px solid #387ef5;
-            background: #fff;
-        }
-        #map {
-            position: fixed;
-            width: 100%;
-            border-bottom: 2px solid #387ef5;
-            height: 200px;
-            background: #fff;
-        }
-        */
         .staticMap {
             position: fixed;
             width: 100%;
@@ -29,5 +12,13 @@ page-ilandetay {
         }
         .item p {
             white-space: normal;
+        }
+
+        // TEKLİF İTEM
+        div.teklif {
+            p {
+                margin-top: 0 !important;
+                margin-left: 41px !important;
+            }
         }
 }

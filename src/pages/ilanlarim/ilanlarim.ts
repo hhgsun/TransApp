@@ -39,13 +39,10 @@ export class IlanlarimPage {
             }
             gelenIlanlar.reverse(); // gelen ilanları ters çeviriyoruz
             this.ilanlarim = []; // herdefasında veriyi sıfırlarız ki üzerine ekleme yapmasın
-            var i = 0;
             gelenIlanlar.forEach(ilan => {
                 this.angularFire.database.object("users/" + ilan["ilaniVerenKullaniciId"]).subscribe(user => {
                     ilan["ilaniVerenKullanici"] = user;
-                    ilan["random"] = "https://avatars.io/facebook/random" + i;
                     this.ilanlarim.push(ilan);
-                    i++;
                 });
             });
         })

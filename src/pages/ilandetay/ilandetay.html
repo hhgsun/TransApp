@@ -25,7 +25,7 @@
 
     <ion-item color="primary" (click)="ilanVerenDetay()">
       <ion-avatar item-left>
-        <img [src]="ilan.random">
+        <img *ngIf="ilan.ilaniVerenKullanici.avatar" src="{{ilan.ilaniVerenKullanici.avatar.downloadURL}}">
       </ion-avatar>
       <h2 style="color:#fff">{{ilan.ilaniVerenKullanici.ad}} {{ilan.ilaniVerenKullanici.soyad}}</h2>
       <p>{{ilan.ilaniVerenKullanici.email}}</p>
@@ -54,7 +54,7 @@
       <h2>Açıklama</h2>
       <p>{{ilan.aciklama}}</p>
     </ion-item>
-    
+
     <ion-item *ngIf="ilan.ilaninSonaErmeTarihi">
       <span item-left>Bitiş Tarihi</span>
       <span item-left>{{ilan.ilaninSonaErmeTarihi}}</span>
@@ -63,22 +63,19 @@
   </ion-card>
 
 
-  <div padding class="offers" style="padding-bottom:70px;">
+  <div padding class="offers">
 
-    <ion-chip *ngFor="let teklif of teklifler" >
-      <ion-avatar>
-        <img [src]="ilan.random">
-      </ion-avatar>
-      <ion-label>{{ilan.fiyat}} - {{teklif.teklifVerenKullaniciId}}</ion-label>
-    </ion-chip>
-
-    <br><br>
-    <ion-chip>
-      <ion-avatar>
-        <img [src]="ilan.random">
-      </ion-avatar>
-      <ion-label>{{ilan.ilaniVerenKullanici.ad}} {{ilan.ilaniVerenKullanici.soyad}}</ion-label>
-    </ion-chip>
+    <div class="teklif" *ngFor="let teklif of teklifler">
+      <ion-chip (click)="teklifVerAlert(teklif)">
+        <ion-avatar>
+          <img *ngIf="teklif.teklifVerenKullanici.avatar" src="{{ilan.ilaniVerenKullanici.avatar.downloadURL}}">
+        </ion-avatar>
+        <ion-label>
+          {{teklif.teklifVerenKullanici.ad}} {{teklif.teklifVerenKullanici.soyad}} - {{teklif.fiyat}} TL
+        </ion-label>
+      </ion-chip>
+      <p>{{teklif.mesaj}}</p>
+    </div>
 
     <br><br>
 

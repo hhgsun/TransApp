@@ -28,7 +28,7 @@ export class IlandetayPage {
         this.teklifleriYukle();
     }
 
-    teklifVerAlert() {
+    teklifVerAlert(upData?: any) {
         //this.map.setVisible(false);
         let prompt = this.alertCtrl.create({
             title: 'Fiyat Teklifi Ver',
@@ -36,13 +36,15 @@ export class IlandetayPage {
             inputs: [
                 {
                     name: 'fiyat',
-                    placeholder: 'Fiyat',
-                    type: 'number'
+                    placeholder: 'Fiyat - TL',
+                    type: 'number',
+                    value: upData ? upData.fiyat : null
                 },
                 {
                     name: 'mesaj',
                     placeholder: 'Kısaca Mesajınız',
-                    type: 'text'
+                    type: 'text',
+                    value: upData ? upData.mesaj : null
                 }
             ],
             buttons: [
@@ -55,13 +57,23 @@ export class IlandetayPage {
                 {
                     text: 'Gönder',
                     handler: data => {
-                        data["teklifVerenKullaniciId"] = this.aktifKullaniciId;
-                        this.angularFire.database.list("ilanlar/" + this.ilan.$key + "/teklifler")
-                            .push(data).then(() => {
-                                this.baseService.presentToast("Teklifiniz ilan sahibine gönderildi");
-                            }).catch(err => {
-                                console.log(err.message)
-                            })
+                        if (upData) {
+                            data["teklifVerenKullaniciId"] = this.aktifKullaniciId;
+                            this.angularFire.database.object("ilanlar/" + this.ilan.$key + "/teklifler/" + upData.$key)
+                                .update(data).then(() => {
+                                    this.baseService.presentToast("Teklifiniz başarıyla güncellendi");
+                                }).catch(err => {
+                                    console.log(err.message);
+                                })
+                        } else {
+                            data["teklifVerenKullaniciId"] = this.aktifKullaniciId;
+                            this.angularFire.database.list("ilanlar/" + this.ilan.$key + "/teklifler")
+                                .push(data).then(() => {
+                                    this.baseService.presentToast("Teklifiniz ilan sahibine gönderildi");
+                                }).catch(err => {
+                                    console.log(err.message)
+                                })
+                        }
                     }
                 }
             ]
@@ -73,8 +85,14 @@ export class IlandetayPage {
     }
 
     teklifleriYukle() {
-        this.angularFire.database.list("ilanlar/" + this.ilan.$key + "/teklifler").subscribe(teklifler => {
-            this.teklifler = teklifler;
+        this.angularFire.database.list("ilanlar/" + this.ilan.$key + "/teklifler").subscribe((teklifler) => {
+            this.teklifler = [];
+            teklifler.forEach(teklif => {
+                this.angularFire.database.object("users/" + teklif.teklifVerenKullaniciId).subscribe(user => {
+                    teklif["teklifVerenKullanici"] = user;
+                    this.teklifler.push(teklif);
+                });
+            });
         })
     }
 

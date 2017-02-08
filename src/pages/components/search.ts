@@ -45,7 +45,10 @@ export class SearchComponent {
         // if the value is an empty string don't filter the items
         if (val && val.trim() != '') {
             this.ilanlar = this.ilanlar.filter((item) => {
-                return (item.baslik.toLowerCase().indexOf(val.toLowerCase()) > -1);
+                var sonuc = (item.aciklama.toLowerCase().indexOf(val.toLowerCase()) > -1)
+                    || (item.baslangic.adres.toLowerCase().indexOf(val.toLowerCase()) > -1)
+                    || (item.bitis.adres.toLowerCase().indexOf(val.toLowerCase()) > -1);
+                return sonuc;
             })
         } else {
             this.ilanlar = [];

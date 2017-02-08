@@ -9,7 +9,7 @@ import { BaseService } from '../services/service'
 })
 export class HesabimPage {
   public profile: any;
-
+  avatarUploadLoading = false;
   constructor(public angularFire: AngularFire, public baseService: BaseService) {
 
     this.angularFire.auth.subscribe(authData => {
@@ -39,4 +39,27 @@ export class HesabimPage {
     })
   }
 
+  resimSecAc() {
+    var input = (<HTMLInputElement>document.getElementById('file'));
+    input.click();
+  }
+
+  resimSec() {
+    this.avatarUploadLoading = true;
+    var silinecekAvatar = this.profile.avatar;
+    var file = [(<HTMLInputElement>document.getElementById('file')).files[0]];
+    this.baseService.imageUploadSTR(file, "avatarImages", "avatar").then(avatarData => {
+      this.angularFire.database.object("users/" + this.profile.$key + "/avatar")
+        .update(avatarData[0]).then(() => {
+          this.avatarUploadLoading = false;
+          this.baseService.presentToast("Profil Resminiz Güncellendi")
+          this.baseService.removeStorage("avatarImages", silinecekAvatar);
+        }).catch(err => {
+          this.avatarUploadLoading = false;
+          console.log(err);
+        });
+    })
+
+  }
 }
+

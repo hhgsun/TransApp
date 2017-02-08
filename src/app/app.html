@@ -5,7 +5,7 @@
     </ion-toolbar-->
     <ion-item *ngIf="aktifKullanici" menuClose (click)="hesabimaGit()">
       <ion-avatar item-left>
-        <img src="http://ionicframework.com/dist/preview-app/www/assets/img/marty-avatar.png">
+        <img src="{{aktifKullanici.avatar.downloadURL}}">
       </ion-avatar>
       <h2>{{aktifKullanici.ad}} {{aktifKullanici.soyad}}</h2>
       <p>{{aktifKullanici.meslek}}</p>

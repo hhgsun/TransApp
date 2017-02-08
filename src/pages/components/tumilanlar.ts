@@ -37,7 +37,6 @@ export class TumilanlarComponent {
             gelenIlanlar.forEach(ilan => {
                 this.angularFire.database.object("users/" + ilan["ilaniVerenKullaniciId"]).subscribe(user => {
                     ilan["ilaniVerenKullanici"] = user;
-                    ilan["random"] = "https://avatars.io/facebook/random" + i;
                     this.ilanlar.push(ilan);
                     i++;
                 });

@@ -71,13 +71,33 @@ $ionicons-font-path: "../assets/fonts";
 @import "ionicons";
 
 
-  // toolbar beyaz ve border-bottom beyaz
-  /*
-    .toolbar-background {
-        background-color:#fff !important;
-        border-color:#fff !important;
+/*AVATAR CUSTOM //////////////////////////*/
+ion-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    img{
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 0 !important;
     }
-    .toolbar-ios {
-        border-bottom: 2px solid #efefef;
-    }
-    */
+}
+ion-chip {
+   ion-avatar {
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50%;
+        overflow: hidden;
+        img{
+            max-height: none !important;
+            height: auto !important;
+            border-radius: 0 !important;
+        }
+    } 
+}
+/*//////////////////////////////////////////*/
+
+.avatar-upload-loading {
+    margin: 10px auto;
+}

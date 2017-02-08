@@ -101,7 +101,11 @@ export class LoginPage {
                     userId: data.uid,
                     email: this.registerData.email,
                     ad: this.registerData.ad,
-                    soyad: this.registerData.soyad
+                    soyad: this.registerData.soyad,
+                    avatar: {
+                        downloadURL: "assets/img/no-avatar.jpg",
+                        name: "local"
+                    }
                 }).then((cal: any) => {
                     console.log(cal);
                 })

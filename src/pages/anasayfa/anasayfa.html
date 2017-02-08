@@ -57,7 +57,7 @@
   <ion-list>
     <ion-item *ngFor="let ilan of ilanlar" (click)="ilanDetay(ilan)">
       <ion-avatar item-left>
-        <img [src]="ilan.random">
+        <img *ngIf="ilan.ilaniVerenKullanici.avatar" src="{{ilan.ilaniVerenKullanici.avatar.downloadURL}}">
       </ion-avatar>
       <h2 *ngIf="ilan.baslangic && ilan.bitis">
          <span *ngIf="ilan.baslangic.bolgeler[ilan.baslangic.bolgeler.length - 2]">{{ilan.baslangic.bolgeler[ilan.baslangic.bolgeler.length - 2]}}</span>

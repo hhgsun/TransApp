@@ -16,7 +16,7 @@ export class AnasayfaPage {
   public topTabs = "ilanlar";
   */
 
-  public ilanlar: any = [];
+  public ilanlar = [];
   public ilanSayisi = 10;
   public infiniteDahaFazla = true;
   public gelenIlanlarLength = 0;
@@ -32,9 +32,10 @@ export class AnasayfaPage {
   }
 
   ionViewDidLoad() {
-    this.angularFire.database.list("ilanlar", {
+    this.ilanlar = [];
+    var ilanlar = this.angularFire.database.list("ilanlar", {
       query: { limitToLast: this.ilanSayisi }
-    }).subscribe((gelenIlanlar) => {
+    }).map(gelenIlanlar => {
       // her loadIlanlardan gelen ilanların length ini tutarız önceki ile eşit ise btnDahaFazla false olur
       if (this.gelenIlanlarLength == gelenIlanlar.length) {
         this.infiniteDahaFazla = false;
@@ -42,18 +43,16 @@ export class AnasayfaPage {
         this.gelenIlanlarLength = gelenIlanlar.length;
       }
       gelenIlanlar.reverse(); // gelen ilanları ters çeviriyoruz
-      this.ilanlar = []; // herdefasında veriyi sıfırlarız ki üzerine ekleme yapmasın
-      var i = 0;
-      gelenIlanlar.forEach(ilan => {
-        this.angularFire.database.object("users/" + ilan["ilaniVerenKullaniciId"]).subscribe(user => {
-          ilan["ilaniVerenKullanici"] = user;
-          ilan["random"] = "https://avatars.io/facebook/random" + i;
-          this.ilanlar.push(ilan);
-          i++;
+      for (let ilan of gelenIlanlar) {
+        this.angularFire.database.object("users/" + ilan.ilaniVerenKullaniciId).subscribe(user=>{
+          ilan.ilaniVerenKullanici = user;
         });
-      });
+      }
+      return gelenIlanlar
+    });
+    ilanlar.subscribe(gelenIlanlar => {
+      this.ilanlar = gelenIlanlar;
     })
-    this.ilanSayisi = this.ilanSayisi + 10;
   }
 
   ilanDetay(ilan) {

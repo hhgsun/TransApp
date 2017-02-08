@@ -2,7 +2,7 @@
 <widget id="com.ionicframework.transapp175861" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>TransApp</name>
     <description>An awesome HHGsun app.</description>
-    <author email="hhgsun@gmail" href="http://hhgsun.com/">HHGsun</author>
+    <author email="hhgsun@gmail.com" href="http://hhgsun.com/">HHGsun</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

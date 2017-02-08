@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
-import { Observable } from "rxjs/Observable";
 
 import { Http, Headers } from '@angular/http';
 import { ToastController, AlertController } from 'ionic-angular';
 
+import { AngularFire } from 'angularfire2';
 //import * as firebase from "firebase";
-declare var window: any;
+
+//declare var window: any;
 
 @Injectable()
 export class BaseService {
+
     private _staticMapSrc = "http://maps.googleapis.com/maps/api/staticmap?"
     + "autoscale=2&size=500x250&maptype=roadmap&"
     + "key=AIzaSyDUrR9i2CKoJ4Ln-qmBMCPyd6NnCx_lTzU"
@@ -17,7 +19,13 @@ export class BaseService {
     private _staticMapSrcBaslangicIcon = "";
     private _staticMapSrcBitisIcon = "";
 
-    constructor(public http: Http, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+    constructor(
+        private http: Http,
+        private toastCtrl: ToastController,
+        private alertCtrl: AlertController,
+        private af: AngularFire
+    ) {
+
     }
 
     staticMapShowMarkers(baslangic: any, bitis: any) {
@@ -115,7 +123,6 @@ export class BaseService {
         });
     }
 
-
     dateFormatCeviri(tarih: any) { //ekleme tarihi vs...
         var date = new Date(tarih);
         var aylar = [];
@@ -134,93 +141,49 @@ export class BaseService {
         return (date.getDate() + " " + aylar[date.getUTCMonth()] + " " + date.getUTCFullYear()).toString() /* + " " + date.getHours().toString() + ":"+ date.getUTCMinutes().toString() =saat*/; /* date.getUTCMonth() + 1 */
     }
 
-    /* BLOB a çevirme Ve Firebase e Image Upload****************************************************/
-    // http://stackoverflow.com/questions/39018980/firebase-storage-v3-returning-multipart-body-does-not-contain-2-or-3-parts-on
-    blobFormataCevir(data, mimeString) {
-        try {
-            return new Blob([data], {
-                type: mimeString
-            });
-        } catch (err) {
-            var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
-            var bb = new BlobBuilder();
-            bb.append(data);
-            return bb.getBlob(mimeString);
-        }
-    };
-
-    uploadImageAsync(localImageFileUrl, uploadPath) {
+    // [(<HTMLInputElement>document.getElementById('file')).files[0]] html yansıması olan ts de kullanılır
+    imageUploadSTR(_imageFiles, _imageFolder, _imagePrefix?: string) {
         return new Promise((resolve, reject) => {
-            window.resolveLocalFileSystemURL(localImageFileUrl, (fileEntry) => {
-                fileEntry.file((file) => {
-                    var reader = new FileReader();
-                    reader.onloadend = (evt: any) => {
-                        try {
-                            var imageBlob = this.blobFormataCevir(evt.target.result, 'image/jpeg');
-                            var metadata = {
-                                contentType: 'image/jpeg'
-                            };
-                            // Create a root reference
-                            var fileName = (new Date()).getTime() + file.name
-                            var storageRef = firebase.storage().ref();
-                            var fileRef = storageRef.child(uploadPath + "/" + fileName);
-                            var uploadTask = fileRef.put(imageBlob, metadata);
-                            uploadTask.on('state_changed', (snapshot) => {
-                                // Observe state change events such as progress, pause, and resume
-                                // See below for more detail
-                                //console.log(snapshot.f);
-                            }, (error) => {
-                                // Handle unsuccessful uploads
-                                console.log(error);
-                                resolve("Upload Hata: " /*+ error.code*/ + ": " + error.message)
-                            }, () => {
-                                // Handle successful uploads on complete
-                                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                var downloadURL = uploadTask.snapshot.downloadURL;
-                                resolve({
-                                    fbPath: fileRef.toString(),
-                                    name: fileName,
-                                    downloadUrl: downloadURL
-                                });
-                            });
-                        } catch (err) {
-                            resolve("Upload Yükleme sonu hata: " + err);
+            var uploadList = [];
+            if (_imageFiles.length == 0) {
+                resolve(uploadList)
+            } else {
+                let storageRef = firebase.storage().ref(_imageFolder);
+                let _date = new Date().toISOString();
+                for (let file of _imageFiles) {
+                    var fileName = _imagePrefix + "@" + file.name + "@" + _date;
+                    var ref = storageRef.child(fileName);
+                    ref.put(file).then((snapshot) => {
+                        var obj = {
+                            name: snapshot.ref.name,
+                            downloadURL: snapshot.downloadURL
                         }
-                    };
-
-                    try {
-                        reader.readAsArrayBuffer(file);
-                    } catch (err) {
-                        resolve("readAsArrayBuffer hata: " + err);
-                    }
-                },
-                    fileFailure => {
-                        resolve("Dosya Nesnesi Gelemedi / Couldn't make File object");
+                        uploadList.push(obj);
+                        if (uploadList.length == _imageFiles.length) {
+                            console.log("UPLOAD SUCCESS");
+                            resolve(uploadList)
+                        }
+                    }).catch(err => {
+                        reject(err.message)
                     });
-            },
-                fileEntryFailure => {
-                    resolve("Görüntü için fileEntry bulamadım / Couldn't find fileEntry for image");
-                });
-
-            return resolve;
-        });
+                }
+            }
+        })
     }
 
-    removeStorage(path: string, storageObj: any) {
-        return new Observable(observer => {
-            var storageRef = firebase.storage().ref();
-            var removeRef = storageRef.child(path + storageObj.name);
-            // Create a reference to the file to delete
-            // var desertRef = storageRef.child('images/desert.jpg');
-            // Delete the file
-            removeRef.delete().then(function () {
-                // File deleted successfully
-                console.log("Silme Basarili")
-                observer.next(true)
-            }).catch(function (error) {
-                // Uh-oh, an error occurred!
-                observer.error(error)
-            });
+    removeStorage(removeBasePath: string, storageObj: any) {
+        return new Promise((resolve, reject) => {
+            try {
+                var storageRef = firebase.storage().ref(removeBasePath);
+                var removeRef = storageRef.child(storageObj.name);
+                removeRef.delete().then(() => {
+                    console.log("Eski Resim Silme Basarili")
+                }).catch((error) => {
+                    reject(error)
+                });
+            } catch (error) {
+                console.log(error.value.serverResponse.error.message)
+            }
         });
     }
 }

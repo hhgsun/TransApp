@@ -12,13 +12,14 @@
 <ion-content>
   <ion-list>
 
-    <ion-item>
+    <ion-item (click)="resimSecAc()">
       <ion-avatar item-left>
-        <img src="http://ionicframework.com/dist/preview-app/www/assets/img/marty-avatar.png">
+        <img *ngIf="avatarUploadLoading == false" src="{{profile.avatar.downloadURL}}">
+        <ion-spinner *ngIf="avatarUploadLoading" class="avatar-upload-loading"></ion-spinner>
       </ion-avatar>
-      <h2>{{profile.ad}} {{profile.soyad}}</h2>
-      <p>{{profile.meslek}}</p>
+      <ion-label>Resim Seç </ion-label>
     </ion-item>
+    <input style="display: none" id="file" type="file" (change)="resimSec()">
 
     <ion-item>
       <ion-label stacked>Ad</ion-label>
@@ -70,6 +71,6 @@
         <ion-radio value="yukSahibi"></ion-radio>
       </ion-item>
     </ion-list>
-    
+
   </ion-list>
 </ion-content>
