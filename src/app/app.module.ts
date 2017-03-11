@@ -10,13 +10,10 @@ import { IlanverPage } from '../pages/ilanver/ilanver';
 import { HesabimPage } from '../pages/hesabim/hesabim';
 import { AyarlarPage } from '../pages/ayarlar/ayarlar';
 import { IlanlarimPage } from '../pages/ilanlarim/ilanlarim';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
 
 // Components
-import { TumilanlarComponent } from '../pages/components/tumilanlar';
-import { SearchComponent } from '../pages/components/search';
-import { AutocompletePage } from '../pages/components/autocomplete';
+import { SearchComponent } from '../components/search/search';
+import { AutoCompleteComponent } from '../components/auto-complete/auto-complete';
 
 // Service
 import { BaseService } from '../pages/services/service';
@@ -43,11 +40,8 @@ export const firebaseConfig = {
     HesabimPage,
     AyarlarPage,
     IlanlarimPage,
-    Page1,
-    Page2,
-    TumilanlarComponent,
     SearchComponent,
-    AutocompletePage
+    AutoCompleteComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp, {
@@ -69,11 +63,8 @@ export const firebaseConfig = {
     HesabimPage,
     AyarlarPage,
     IlanlarimPage,
-    Page1,
-    Page2,
-    TumilanlarComponent,
     SearchComponent,
-    AutocompletePage
+    AutoCompleteComponent
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, BaseService]
 })

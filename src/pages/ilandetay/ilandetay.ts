@@ -17,6 +17,9 @@ export class IlandetayPage {
     public ilanSuresiBitmis = false;
     public staticMapSrc;
     public teklifler = [];
+
+    drawerOptions: any;
+
     constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public angularFire: AngularFire, public baseService: BaseService) {
         this.ilan = this.navParams.get("item");
         this.angularFire.auth.subscribe(aktifKullanici => {
@@ -26,6 +29,12 @@ export class IlandetayPage {
         if (this.ilan.ilaninSonaErmeTarihi < datenow) this.ilanSuresiBitmis = true; else this.ilanSuresiBitmis = false;
         this.staticMapSrc = this.baseService.staticMapShowMarkers(this.ilan.baslangic, this.ilan.bitis);
         this.teklifleriYukle();
+        this.drawerOptions = {
+            handleHeight: 50,
+            thresholdFromBottom: 200,
+            thresholdFromTop: 200,
+            bounceBack: true
+        };
     }
 
     teklifVerAlert(upData?: any) {

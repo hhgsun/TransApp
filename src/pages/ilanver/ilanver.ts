@@ -5,7 +5,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import { BaseService } from '../services/service'
 
-import { AutocompletePage } from '../components/autocomplete'
+import { AutoCompleteComponent } from '../../components/auto-complete/auto-complete'
 import { AnasayfaPage } from '../anasayfa/anasayfa'
 
 @Component({
@@ -89,7 +89,7 @@ export class IlanverPage {
   }
 
   showAddressModal(neresiIcin: string) {
-    let modal = this.modalCtrl.create(AutocompletePage);
+    let modal = this.modalCtrl.create(AutoCompleteComponent);
     modal.onDidDismiss((locationData: any) => {
       if (locationData) {
         if (neresiIcin == "nereden") {

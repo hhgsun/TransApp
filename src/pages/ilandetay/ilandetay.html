@@ -60,29 +60,26 @@
       <span item-left>{{ilan.ilaninSonaErmeTarihi}}</span>
     </ion-item>
 
-  </ion-card>
-
-
-  <div padding class="offers">
-
-    <div class="teklif" *ngFor="let teklif of teklifler">
-      <ion-chip (click)="teklifVerAlert(teklif)">
-        <ion-avatar>
-          <img *ngIf="teklif.teklifVerenKullanici.avatar" src="{{ilan.ilaniVerenKullanici.avatar.downloadURL}}">
-        </ion-avatar>
-        <ion-label>
-          {{teklif.teklifVerenKullanici.ad}} {{teklif.teklifVerenKullanici.soyad}} - {{teklif.fiyat}} TL
-        </ion-label>
-      </ion-chip>
-      <p>{{teklif.mesaj}}</p>
+    <div class="teklifler" padding>
+      <ion-item-divider color="light">Teklifler</ion-item-divider>
+      <br>
+      <div class="teklif" *ngFor="let teklif of teklifler">
+        <ion-chip (click)="teklifVerAlert(teklif)">
+          <ion-avatar>
+            <img *ngIf="teklif.teklifVerenKullanici.avatar" src="{{ilan.ilaniVerenKullanici.avatar.downloadURL}}">
+          </ion-avatar>
+          <ion-label>
+            {{teklif.teklifVerenKullanici.ad}} {{teklif.teklifVerenKullanici.soyad}} - {{teklif.fiyat}} TL
+          </ion-label>
+        </ion-chip>
+        <p>{{teklif.mesaj}}</p>
+      </div>
+      <br><br>
+      <button (click)="teklifVerAlert()" icon-left ion-button round block>
+        <ion-icon name="pricetag"></ion-icon>
+        Teklif Ver
+      </button>
     </div>
-
-    <br><br>
-
-    <button (click)="teklifVerAlert()" icon-left ion-button round block>
-      <ion-icon name="pricetag"></ion-icon>
-      Teklif Ver
-    </button>
-  </div>
+  </ion-card>
 
 </ion-content>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, ModalController, MenuController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
 
-import { SearchComponent } from '../components/search'
+import { SearchComponent } from '../../components/search/search'
 import { IlanverPage } from '../ilanver/ilanver'
 import { IlandetayPage } from '../ilandetay/ilandetay'
 
@@ -26,7 +26,7 @@ export class AnasayfaPage {
     public angularFire: AngularFire,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
   ) {
     menuCtrl.swipeEnable(true);
   }
@@ -35,7 +35,7 @@ export class AnasayfaPage {
     this.ilanlar = [];
     var ilanlar = this.angularFire.database.list("ilanlar", {
       query: { limitToLast: this.ilanSayisi }
-    }).map(gelenIlanlar => {
+    }).take(1).map(gelenIlanlar => {
       // her loadIlanlardan gelen ilanların length ini tutarız önceki ile eşit ise btnDahaFazla false olur
       if (this.gelenIlanlarLength == gelenIlanlar.length) {
         this.infiniteDahaFazla = false;

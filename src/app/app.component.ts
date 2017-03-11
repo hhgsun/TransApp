@@ -9,9 +9,6 @@ import { AnasayfaPage } from '../pages/anasayfa/anasayfa';
 import { HesabimPage } from '../pages/hesabim/hesabim';
 import { AyarlarPage } from '../pages/ayarlar/ayarlar';
 import { IlanlarimPage } from '../pages/ilanlarim/ilanlarim';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
-
 
 @Component({
   templateUrl: 'app.html'
@@ -43,9 +40,7 @@ export class MyApp {
     this.pages = [
       { title: 'Bilgilerim', component: HesabimPage },
       { title: 'Ayarlar', component: AyarlarPage },
-      { title: 'İlanlarım', component: IlanlarimPage },
-      { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 }
+      { title: 'İlanlarım', component: IlanlarimPage }
     ];
   }
 

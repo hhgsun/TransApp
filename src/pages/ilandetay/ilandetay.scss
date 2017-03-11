@@ -9,6 +9,8 @@ page-ilandetay {
         }
         .card {
             margin-top: 200px;
+            position: relative;
+            z-index: 10;
         }
         .item p {
             white-space: normal;
@@ -21,4 +23,5 @@ page-ilandetay {
                 margin-left: 41px !important;
             }
         }
+
 }

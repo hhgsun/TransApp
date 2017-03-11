@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Searchbar, ViewController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2';
-import { IlandetayPage } from '../ilandetay/ilandetay'
+import { IlandetayPage } from '../../pages/ilandetay/ilandetay'
 
 @Component({
     selector: 'search',
